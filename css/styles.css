@@ -1,0 +1,142 @@
+body {
+  margin: 0;
+  text-align: center;
+  font-family: "Inter", sans-serif;
+}
+.top-container {
+  background-color: white;
+  margin: 0;
+}
+.playlistdata {
+  color: rgba(219, 32, 32, 1);
+  position: absolute;
+  font-family: "Inter", sans-serif;
+  top: 30px;
+  left: 70px;
+  font-weight: Bold;
+  font-size: 24px;
+  /* opacity: 1; */
+  text-align: left;
+  text-decoration: none;
+}
+.github {
+  color: rgba(0, 0, 0, 1);
+  position: absolute;
+  top: 30px;
+  right: 70px;
+  font-family: "Inter", sans-serif;
+  font-weight: Bold;
+  font-size: 20px;
+  opacity: 1;
+  text-align: left;
+  text-decoration: none;
+}
+.icon {
+  position: absolute;
+  width: 22px;
+  top: 32px;
+  right: 150px;
+  cursor: pointer;
+}
+.second-container {
+  padding-top: 160px;
+}
+.mainbanner {
+  color: rgba(219, 32, 32, 1);
+  font-family: "Inter", sans-serif;
+  font-weight: Semi Bold;
+  font-size: 40px;
+  opacity: 1;
+  text-align: center;
+}
+.playlistlink {
+  width: 600px;
+  padding: 8px;
+  font-size: 18px;
+  border-width: 2px;
+  border-color: #000000;
+  font-family: "Inter", sans-serif;
+
+  background-color: #ffffff;
+  color: #000000;
+  border-style: solid;
+  border-radius: 4px;
+  box-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75);
+  text-shadow: -50px 0px 0px rgba(66, 66, 66, 0);
+}
+.css-input:focus {
+  outline: none;
+}
+.fetchbtn {
+  margin-left: 8px;
+  padding: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 18px;
+  border-width: 2px;
+  border-color: black;
+  font-family: "Inter", sans-serif;
+  background-color: rgb(220, 32, 32);
+  color: white;
+  /* border: solid; */
+  border-radius: 4px;
+  box-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75);
+}
+.fetchbtn:hover {
+  margin-left: 8px;
+  padding: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 18px;
+  border-width: 2px;
+  border-color: black;
+  font-family: "Inter", sans-serif;
+  background-color: rgb(215, 11, 11);
+  color: white;
+  /* border: solid; */
+  border-radius: 4px;
+  box-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75);
+  text-shadow: -50px 0px 0px rgba(66, 66, 66, 0);
+}
+
+.para {
+  padding-top: 30px;
+  color: rgba(0, 0, 0, 1);
+  font-family: "Inter", sans-serif;
+  font-weight: Medium;
+  font-size: 20px;
+  opacity: 1;
+  text-align: center;
+}
+.fourth-container {
+  padding-top: 160px;
+}
+.madewithlove {
+  font-family: "Inter", sans-serif;
+  font-weight:  Bold;
+  font-size: 17px;
+  opacity: 1;
+  text-align: center;
+}
+
+.help {
+  font-family: "Inter", sans-serif;
+  padding-right: 10px;
+  color: #000;
+  font-weight: Semi Bold;
+  font-size: 15px;
+  /* opacity: 1; */
+  text-align: center;
+  text-decoration: none;
+}
+
+.h2h {
+  padding-left: 10px;
+  font-family: "Inter", sans-serif;
+  font-weight: Semi Bold;
+  color: #000;
+  font-size: 15px;
+  /* opacity: 1; */
+  text-align: center;
+  text-decoration: none;
+}
