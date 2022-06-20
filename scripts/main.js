@@ -79,9 +79,7 @@ async function getVideosDuraion() {
 				gTotalDuration += toSeconds.toSeconds(video.contentDetails.duration);
 			}
 		}
-
-		
-        console.log("This playlist is "+ gTotalDuration + " seconds long.");
+        
 	} catch (e) {
 		throw new Error(e.message);
 		console.log('error 4') ;
@@ -108,11 +106,13 @@ function extractID(playlist) {
  async function mainfun ( playlistId, apiKey, formatted = false ) {
     // console.log(playlistId,apiKey);
 	if (!playlistId || !apiKey) {
-		throw new Error(`Provide a valid playlist Id & API key!`);
+		throw new Error(`Invalid Playlist ID or YouTube API Key.`);
 	}
 
 	try {
 		gPlaylistId = extractID(playlistId);
+		gTotalDuration = 0;
+		gVideoIdsPromises.length = 0;
 		API_KEY = apiKey;
 		await getPlaylistData();
 		await getVideosDuraion();
@@ -121,6 +121,6 @@ function extractID(playlist) {
 		throw new Error(e.message);
 		console.log('error 6') ;
 	}
-}
+} 
 
 module.exports = {mainfun}

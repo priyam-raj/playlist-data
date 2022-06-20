@@ -1,12 +1,13 @@
+
+
 body {
-  margin: 0;
   text-align: center;
-  font-family: "Inter", sans-serif;
+  
 }
-.top-container {
+/* .top-container {
   background-color: white;
   margin: 0;
-}
+} */
 .playlistdata {
   color: rgba(219, 32, 32, 1);
   position: absolute;
@@ -50,20 +51,39 @@ body {
   text-align: center;
 }
 .playlistlink {
-  width: 600px;
+  width: 40%;
   padding: 8px;
-  font-size: 18px;
-  border-width: 2px;
+  font-size: 15px;
+  border-width: 1px;
   border-color: #000000;
   font-family: "Inter", sans-serif;
 
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #21262d;
+  color: #c9d1d9;
   border-style: solid;
-  border-radius: 4px;
-  box-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75);
-  text-shadow: -50px 0px 0px rgba(66, 66, 66, 0);
+  border-radius: 3px;
+  
+  /* box-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75);
+  text-shadow: -50px 0px 0px rgba(66, 66, 66, 0); */
+
 }
+
+
+
+.red-button {
+  color: rgba(219, 32, 32, 1);
+
+
+}
+
+
+#fetch-area {
+  padding: 30px;
+
+}
+
+
+
 .css-input:focus {
   outline: none;
 }
@@ -72,41 +92,47 @@ body {
   padding: 8px;
   padding-left: 10px;
   padding-right: 10px;
-  font-size: 18px;
-  border-width: 2px;
-  border-color: black;
+  font-size: 15px;
+  border-width: 1px;
+  border-color: #21262d;
   font-family: "Inter", sans-serif;
-  background-color: rgb(220, 32, 32);
+  background-color: #21262d;
   color: white;
   /* border: solid; */
   border-radius: 4px;
-  box-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75);
+  /* box-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75); */
 }
 .fetchbtn:hover {
   margin-left: 8px;
   padding: 8px;
   padding-left: 10px;
   padding-right: 10px;
-  font-size: 18px;
-  border-width: 2px;
+  font-size: 15px;
+  border-width: 1px;
   border-color: black;
   font-family: "Inter", sans-serif;
-  background-color: rgb(215, 11, 11);
+  background-color: #515253;
   color: white;
   /* border: solid; */
   border-radius: 4px;
-  box-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75);
+  /* box-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75); */
   text-shadow: -50px 0px 0px rgba(66, 66, 66, 0);
 }
 
+.moto {
+  font-size: 22px;
+color: #c9d1d9;
+
+}
+
 .para {
-  padding-top: 30px;
-  color: rgba(0, 0, 0, 1);
+  padding: 10px;
+  color: #c9d1d9;
   font-family: "Inter", sans-serif;
   font-weight: Medium;
-  font-size: 20px;
+  font-size: 13px;
   opacity: 1;
-  text-align: center;
+  /* text-align: center; */
 }
 .fourth-container {
   padding-top: 160px;
@@ -117,6 +143,7 @@ body {
   font-size: 17px;
   opacity: 1;
   text-align: center;
+  color: #c9d1d9;
 }
 
 .help {
@@ -134,7 +161,7 @@ body {
   padding-left: 10px;
   font-family: "Inter", sans-serif;
   font-weight: Semi Bold;
-  color: #000;
+  color: #c9d1d9;
   font-size: 15px;
   /* opacity: 1; */
   text-align: center;
