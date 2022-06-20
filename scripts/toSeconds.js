@@ -1,7 +1,7 @@
  function toSeconds(input) {
 	try {
 		const regex = /^P(?:(\d+)D)?T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
-		let days = 0;
+		let days = 0; 
 		let hours = 0;
 		let minutes = 0;
 		let seconds = 0;
@@ -17,7 +17,8 @@
 
 			totalSeconds = days * 86400 + hours * 3600 + minutes * 60 + seconds;
 		} else {
-			throw new Error(`Invalid date: ${input}`);
+			// throw new Error(`Invalid date: ${input}`);
+			// throw without a catch caused error. 
 		}
 
 		return totalSeconds;
