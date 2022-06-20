@@ -4,7 +4,7 @@ const app = express()
 const port = 3000
 const axios = require('axios');
 const baseApiURL = 'https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=500';
-const apiKey = 'AIzaSyBXZ2JbqV-4Y1DogCzaoLdvy3VgoZLVKOM'; 
+const apiKey = ''; 
 const playlistID = 'PLhTm4jreEBz9G2eYFIePmMbyVmeoLeSMF';
 const main = require('./scripts/main');
 const { request } = require('express');
