@@ -1,2 +1,3 @@
-# playlist-data
-A simple web app to calculate duration of a youtube playlist.
+# Playlist Data
+Web-app to fetch details from Youtube Playlists.
+

@@ -70,7 +70,7 @@ async function getPlaylistData() {
 
 
 
-async function getVideosDuraion() {
+async function getVideosDuration() {
 	try {
 		const videoGroups = await Promise.all(gVideoIdsPromises);
 
@@ -115,9 +115,11 @@ function extractID(playlist) {
 		gVideoIdsPromises.length = 0;
 		API_KEY = apiKey;
 		await getPlaylistData();
-		await getVideosDuraion();
-		return  formatDuration.formatDuration(gTotalDuration) ;
-	} catch (e) {
+		await getVideosDuration();
+		return formattedDuration = formatDuration.formatDuration(gTotalDuration);
+	} 
+	
+	catch (e) {
 		throw new Error(e.message);
 		console.log('error 6') ;
 	}

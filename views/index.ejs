@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playlist Data</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Merriweather&family=Montserrat&family=Roboto+Mono&family=Sacramento&display=swap"
+        rel="stylesheet">
+        <link href="https://unpkg.com/@primer/css@^19.0.0/dist/primer.css" rel="stylesheet" />
+            
+</head>
+
+<body data-color-mode="auto" data-light-theme="light" 
+data-dark-theme="dark">
+
+
+    <div class="container-lg px-3 py-4 flex-justify-between ">
+    <nav class="text-bold text-right ">
+        <a class="text-inherit px-2 d-inline-block red-button" href="https://github.com/priyam-raj/">About</a>
+        <a class="text-inherit px-2 d-inline-block red-button" href="https://github.com/priyam-raj/">GitHub</a>
+    </nav></div>
+
+
+
+    <!-- for heading and para -->
+    <div class="container-lg px-3 second-container text-center">
+        <h2 class="h1 text-uppercase red-button">YouTube Playlist Data</h1>
+        <p class="f3-light">Useful tool to fetch duration/length of any Youtube Playlist</p>
+
+        <!-- <p class=  "para">Best way to find out the length of any playlist on YouTube.</p> -->
+   
+
+
+    <div class="fetch-area">
+<!-- Playlist URL Placeholder -->
+        <!-- <form action="/search" method="POST">  -->
+        <form id="formSubmitted">   
+
+       <span> <input type="text" id="myText" name="playlisturl" class="form-control" placeholder="playlist link"></span>
+  
+        <button class="btn" type="button"  name="button" id="submit" onclick="getData()">Fetch</button>
+        <!-- <button class="btn AnimatedEllipsis" aria-disabled="true"><span>Fetching</span><span></span></button> -->
+
+
+    </form>
+</div>
+
+<p class="f3-light" id="showData"></p>
+
+
+
+  </div>
+
+
+
+
+    <!-- for about us section -->
+    <!-- <div class="third-container">
+        <h2 class="">Why Playlistdata </h2>
+    </div> -->
+
+    <!-- for the name of contributors -->
+    <div class="container-lg px-3 fourth-container flex-wrap p-12  ">
+
+
+       
+
+        <div class="col-lg-4  pt-10 py-10 d-md-inline-block float-xl-right">
+            <a href="/apps/todo/" class="d-flex flex-column rounded-1 box-shadow border text-inherit no-underline flex-1" style="height: 100%">
+            <h3 class="h4 px-3 pt-3 red-button">playlist-data</h3>
+            <p class="lh-condensed px-3 pb-3 red-button">Web-app to fetch details from Youtube Playlists</p>
+            <div class=" pl-3 pr-2 py-2  border-top github">
+            <div class="d-flex flex-row">
+                <div class="col-3" aria-label="42 stars ">
+                    <svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-star red-button" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z">
+        
+                        </path></svg> 
+                        <span class="v-align-middle red-button">42</span></div><div class="col-9 text-right">
+                            <img class="avatar tooltipped tooltipped-s" alt="Priyam Raj" aria-label="Priyam Raj" height="24" src="https://avatars.githubusercontent.com/u/26673536?v=4">
+                            <img class="avatar tooltipped tooltipped-s" alt="Abhijeet Anand" aria-label="Abhijeet Anand" height="24" src="https://avatars.githubusercontent.com/u/28523767?v=4">
+                            <img class="avatar tooltipped tooltipped-s" alt="Harsh Govind" aria-label="Harsh Govind" height="24" src="https://avatars.githubusercontent.com/u/71700319?v=4">
+                            <img class="avatar tooltipped tooltipped-s" alt="Satarupa Deb" aria-label="Satarupa Deb" height="24" src="https://avatars.githubusercontent.com/u/84276219?v=4">
+                        </div></div></div></a></div>
+
+
+                        <p class="float-left color-text-tertiary pt-11 my-3 py-12">
+                            <> with ♥ by <br>
+                            Priyam Raj, Abhijeet Anand, <br>
+                            Harsh Govind and Satarupa Deb
+                        </p>
+
+      
+        <!-- <a class="help" href="" class="Help">Help</a>
+        <a class="h2h" href="" class="How">How to use</a> -->
+    </div>
+
+    <!-- for github repo -->
+    <!-- <div class="bottom-container">
+        <h4>Playlist-data</h4>
+        <p>A simple web app to <br> fetch data from <br> Youtube playlist</p>
+    </div> -->
+    <script type="text/javascript" src="./client.js" ></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</body>
+
+</html>
