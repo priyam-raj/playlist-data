@@ -77,6 +77,8 @@ async function getVideosDuration() {
 		for (const group of videoGroups) {
 			for (const video of group) {
 				gTotalDuration += toSeconds.toSeconds(video.contentDetails.duration);
+
+
 			}
 		}
         
@@ -116,7 +118,15 @@ function extractID(playlist) {
 		API_KEY = apiKey;
 		await getPlaylistData();
 		await getVideosDuration();
+
+		gTotalDurationTwo = Math.floor(gTotalDuration / 1.25);
+		gTotalDurationThree = Math.floor(gTotalDuration / 1.50);
+		gTotalDurationFour = Math.floor(gTotalDuration / 1.75);
+		gTotalDurationFive = Math.floor(gTotalDuration / 2.00);
+
+
 		return formattedDuration = formatDuration.formatDuration(gTotalDuration);
+
 	} 
 	
 	catch (e) {
@@ -124,5 +134,4 @@ function extractID(playlist) {
 		console.log('error 6') ;
 	}
 } 
-
 module.exports = {mainfun}

@@ -4,7 +4,6 @@ const app = express();
 const port = 3000;
 const axios = require("axios");
 const apiKey = "";
-// const playlistID = 'PLhTm4jreEBz9G2eYFIePmMbyVmeoLeSMF';
 const main = require("./scripts/main");
 
 const { request } = require("express");
@@ -22,6 +21,7 @@ app.use(express.static("views"));
 
 app.post("/search", async (req, res) => {
   const playlisturl = req.body.playlistID;
+  
   resp = await main.mainfun(playlisturl, apiKey);
   res.send(
     "This playlist is " +
@@ -30,7 +30,7 @@ app.post("/search", async (req, res) => {
       resp.minutes +
       " minutes " +
       resp.seconds +
-      " seconds long."
+      " seconds long"
   );
 });
 

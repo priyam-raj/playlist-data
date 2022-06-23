@@ -21,8 +21,14 @@
 			// throw without a catch caused error. 
 		}
 
+		// totalSecondsTwo /= 1.25;
+		// totalSecondsThree /= 1.50;
+		// totalSecondsFour /= 1.75;
+		// totalSecondsFive /= 2.0;
+
 		return totalSeconds;
 	} catch (e) {
+		
 		console.error(e);
 		if (e.message.includes("Invalid date")) {
 			return "Invalid date";

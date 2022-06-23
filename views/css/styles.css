@@ -1,166 +1,26 @@
-
-
 /* body {
   text-align: center;
   
 } */
-/* .top-container {
-  background-color: white;
-  margin: 0;
-}
-.playlistdata {
-  color: rgba(219, 32, 32, 1);
-  position: absolute;
-  font-family: "Inter", sans-serif;
-  top: 30px;
-  left: 70px;
-  font-weight: Bold;
-  font-size: 24px;
-  opacity: 1;
-  text-align: left;
-  text-decoration: none;
-} */ 
-
 
 .github {
- margin-top: auto;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
+  margin-top: auto;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
-
-.icon {
-  position: absolute;
-  width: 22px;
-  top: 32px;
-  right: 150px;
-  cursor: pointer;
-}
 .second-container {
   padding-top: 160px;
 }
-.mainbanner {
-  color: rgba(219, 32, 32, 1);
-  font-family: "Inter", sans-serif;
-  font-weight: Semi Bold;
-  font-size: 40px;
-  opacity: 1;
-  text-align: center;
-}
-.playlistlink {
-  width: 40%;
-  padding: 8px;
-  font-size: 15px;
-  border-width: 1px;
-  border-color: #000000;
-  font-family: "Inter", sans-serif;
-
-  background-color: #21262d;
-  color: #c9d1d9;
-  border-style: solid;
-  border-radius: 3px;
-  
-  /* box-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75);
-  text-shadow: -50px 0px 0px rgba(66, 66, 66, 0); */
-
-}
-
-
 
 .red-button {
   color: rgba(219, 32, 32, 1);
-
-
 }
-
 
 .fetch-area {
   padding: 30px;
-
 }
 
-
-
-.css-input:focus {
-  outline: none;
-}
-.fetchbtn {
-  margin-left: 8px;
-  padding: 8px;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-size: 15px;
-  border-width: 1px;
-  border-color: #21262d;
-  font-family: "Inter", sans-serif;
-  background-color: #21262d;
-  color: white;
-  /* border: solid; */
-  border-radius: 4px;
-  /* box-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75); */
-}
-.fetchbtn:hover {
-  margin-left: 8px;
-  padding: 8px;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-size: 15px;
-  border-width: 1px;
-  border-color: black;
-  font-family: "Inter", sans-serif;
-  background-color: #515253;
-  color: white;
-  /* border: solid; */
-  border-radius: 4px;
-  /* box-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75); */
-  text-shadow: -50px 0px 0px rgba(66, 66, 66, 0);
-}
-
-.moto {
-  font-size: 22px;
-color: #c9d1d9;
-
-}
-
-.para {
-  padding: 10px;
-  color: #c9d1d9;
-  font-family: "Inter", sans-serif;
-  font-weight: Medium;
-  font-size: 13px;
-  opacity: 1;
-  /* text-align: center; */
-}
 .fourth-container {
   padding-top: 160px;
-}
-.madewithlove {
-  font-family: "Inter", sans-serif;
-  font-weight:  Bold;
-  font-size: 17px;
-  opacity: 1;
-  text-align: center;
-  color: #c9d1d9;
-}
-
-.help {
-  font-family: "Inter", sans-serif;
-  padding-right: 10px;
-  color: #000;
-  font-weight: Semi Bold;
-  font-size: 15px;
-  /* opacity: 1; */
-  text-align: center;
-  text-decoration: none;
-}
-
-.h2h {
-  padding-left: 10px;
-  font-family: "Inter", sans-serif;
-  font-weight: Semi Bold;
-  color: #c9d1d9;
-  font-size: 15px;
-  /* opacity: 1; */
-  text-align: center;
-  text-decoration: none;
 }
