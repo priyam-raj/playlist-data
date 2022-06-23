@@ -1,7 +1,6 @@
 async function getData() {
-  document.getElementById("submit").textContent = "Fetching";
-  document.getElementById("showData").innerHTML = "Loading...";
-  //    document.getElementById("submit").className = "btn text-center AnimatedEllipsis";
+  document.getElementById("submit").textContent = "Fetching..";
+  // document.getElementById("showData").innerHTML = "Loading...";
   var playlistEntered = document.getElementById("myText").value;
   var checkedPlaylistID = is_playlist_url(playlistEntered);
   console.log(playlistEntered);
@@ -10,8 +9,8 @@ async function getData() {
     finalFetch(checkedPlaylistID);
   }
   else {
-    document.getElementById("showData").innerHTML = "The URL is invalid.";
-    document.getElementById("submit").className = "btn";
+    document.getElementById("showData").innerHTML = "Error: Invalid URL";
+    document.getElementById("showData").className = "flash mt-3 flash-error";
     document.getElementById("submit").textContent = "Fetch Again";
   }
 
@@ -78,6 +77,7 @@ function finalFetch(playlistEntered){
     function (fetchedData) {
       let fetchData = fetchedData;
       console.log(fetchedData);
+      document.getElementById("showData").className = "flash mt-3 flash-success Box anim-hover-grow";
       document.getElementById("showData").innerHTML = fetchData;
       document.getElementById("submit").className = "btn";
       document.getElementById("submit").textContent = "Fetch Again";

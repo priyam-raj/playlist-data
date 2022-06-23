@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const port = 3000;
 const axios = require("axios");
-const apiKey = "";
+const apiKey = "AIzaSyAXCZuhc_czipwXrrxPOkVOJK1N2Nf841M";
 const main = require("./scripts/main");
 
 const { request } = require("express");
@@ -24,13 +24,13 @@ app.post("/search", async (req, res) => {
   
   resp = await main.mainfun(playlisturl, apiKey);
   res.send(
-    "This playlist is " +
+    "Length of this Playlist is " +
       resp.hours +
-      " hours " +
+      " Hours, " +
       resp.minutes +
-      " minutes " +
+      " Minutes and " +
       resp.seconds +
-      " seconds long"
+      " Seconds."
   );
 });
 

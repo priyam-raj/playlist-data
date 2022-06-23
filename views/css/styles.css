@@ -1,26 +1,13 @@
-/* body {
-  text-align: center;
-  
-} */
 
-.github {
-  margin-top: auto;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
 
 .second-container {
   padding-top: 160px;
 }
 
 .red-button {
-  color: rgba(219, 32, 32, 1);
+  color: #84142D;
 }
 
 .fetch-area {
   padding: 30px;
-}
-
-.fourth-container {
-  padding-top: 160px;
 }
