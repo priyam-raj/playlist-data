@@ -11,7 +11,6 @@ const main = require("./scripts/main");
 const checkID = require("./scripts/checkID");
 const { request } = require("express");
 const { json } = require("body-parser");
-const { required } = require("nodemon/lib/config");
 var resp;
 
 
