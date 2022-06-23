@@ -3,16 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+
   "scripts": {
-    "dev": "react-scripts start",
-    "start": "serve -s build",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "heroku-postbuild": "npm run build"
+    "start": "node app.js",
+    "build": "npm i",
+    "test": "react-scripts test --env=jsdom"
   },
-  "author": "",
+
+  "author": "Priyam Raj",
   "license": "ISC",
+
+  "engines": {
+    "node": "16.x"
+  },
+
   "dependencies": {
     "axios": "^0.27.2",
     "body-parser": "^1.20.0",
