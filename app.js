@@ -1,15 +1,18 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+
+require('dotenv').config();
+
 const app = express();
 const port = 3000;
 const axios = require("axios");
-const apiKey = "";
+const apiKey = process.env.YOUTUBE_API_KEY;
 const main = require("./scripts/main");
 const checkID = require("./scripts/checkID");
 const { request } = require("express");
 const { json } = require("body-parser");
+const { required } = require("nodemon/lib/config");
 var resp;
-
 
 
 app.set("view engine", "ejs");
