@@ -4,6 +4,10 @@
   "description": "",
   "main": "app.js",
 
+  "engines": {
+    "node": "16.15.0"
+  },
+
   "scripts": {
     "start": "node app.js",
     "build": "npm i",
@@ -13,9 +17,7 @@
   "author": "Priyam Raj",
   "license": "ISC",
 
-  "engines": {
-    "node": "16.x"
-  },
+ 
 
   "dependencies": {
     "axios": "^0.27.2",
