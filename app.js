@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 require('dotenv').config();
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
 const axios = require("axios");
 const apiKey = process.env.YOUTUBE_API_KEY;
 const main = require("./scripts/main");
@@ -50,6 +50,6 @@ app.get("/", function (req, res) {
 
 
 
-app.listen(port, () => {
+app.listen(port || 3000, () => {
   console.log(`Playlist data is now running baby! (port ${port})`);
 });
