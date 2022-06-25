@@ -21,7 +21,7 @@ function generateVideosURL(id) {
 async function getVideoIdsForPageToken() {
 	try {
 		const { data } = await axios.get(getNextTokenURL());
-		const nextPageToken = data.newPageToken;
+		const nextPageToken = data.nextPageToken;
 
 		const videoIds = data.items.map((video) => {
 			return video.contentDetails.videoId;
