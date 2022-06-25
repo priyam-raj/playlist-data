@@ -1,5 +1,5 @@
 
-<img align="right" width="100" height="100" src="https://playlistdata.com/favicon.png">
+<img align="right" width="100" height="100" src="https://playlistdata.com/assets/favicon.png">
 
 # YouTube Playlist Data Fetcher
 
