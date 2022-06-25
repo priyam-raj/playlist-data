@@ -15,6 +15,7 @@ While watching any video playlist it could be often necessary to look into the t
 - Automated Light/Dark Mode
 - Simple One-Page Navigation
 - Fast Results
+- No Ads or Paywall, Completely Free & Open-Source
 
 &nbsp;&nbsp;
 

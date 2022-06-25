@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 require('dotenv').config();
 
 const app = express();
-// const port = process.env.PORT;
+const port = process.env.PORT;
 const axios = require("axios");
 const apiKey = process.env.YOUTUBE_API_KEY;
 const main = require("./scripts/main");
@@ -36,7 +36,7 @@ app.post("/search", async (req, res) => {
         " seconds long"
     );
   }else {
-    res.send("API Error Scott!!");
+    res.send("Great Scott! You sure this playlist exists in this Time and Universe?");
   }
   
   
