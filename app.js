@@ -27,7 +27,7 @@ app.post("/search", async (req, res) => {
     resp = await main.finalisedDuration(playlisturl);
     res.send(resp.toString()); 
     } else {
-    res.send("Great Scott! You sure this playlist exists in this Time and Universe?");
+    res.send("API_Error");
   }
 });
 

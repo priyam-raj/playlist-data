@@ -1,15 +1,20 @@
 async function getData() {
   document.getElementById("submit").textContent = "Fetching..";
-  // document.getElementById("showData").innerHTML = "Loading...";
+  document.getElementById("showData").innerHTML = "";
+  document.getElementById("showData").className = "";
+  document.getElementById("gif-container").innerHTML = '';
   var playlistEntered = document.getElementById("myText").value;
   var checkedPlaylistID = is_playlist_url(playlistEntered);
   if (checkedPlaylistID != "NULL"){
     finalFetch(checkedPlaylistID);
   }
+
+
   else {
-    document.getElementById("showData").innerHTML = "Error: Invalid URL";
-    document.getElementById("showData").className = "flash mt-3 flash-error";
+    document.getElementById("showData").innerHTML = "This is an invalid URL";
+    document.getElementById("showData").className = "flash mt-3 flash-error ";
     document.getElementById("submit").textContent = "Fetch Again";
+    document.getElementById("gif-container").innerHTML = '<img src="assets/dustin-boom.gif" class="img-responsive"></img>';
   }
 
 
@@ -83,12 +88,27 @@ function finalFetch(playlistEntered){
     {
       playlistID: playlistEntered,
     },
+
+    
+
     function (fetchedData) {
+
+      if (fetchedData === "API_Error") {
+        document.getElementById("showData").innerHTML = "Great Scott! Are you sure this playlist is in the right Time and in the right Universe?";
+        document.getElementById("showData").className = "flash mt-3 flash-warn";
+        document.getElementById("gif-container").innerHTML = '<img src="assets/great-scott.gif"></img>';
+        document.getElementById("submit").textContent = "Fetch Again";
+
+      }
+
+      else { 
       let fetchData = formatDuration(parseInt(fetchedData));
-      document.getElementById("showData").className = "flash mt-3 flash-success Box anim-hover-grow";
+      document.getElementById("showData").className = "flash mt-3 flash-success Box anim-hover-grow" ;
       document.getElementById("showData").innerHTML = "This playlist is " + fetchData.hours + " hours " + fetchData.minutes + " minutes " + fetchData.seconds + " seconds.";
       document.getElementById("submit").className = "btn";
       document.getElementById("submit").textContent = "Fetch Again";
+
+    }
     }
   );
 }

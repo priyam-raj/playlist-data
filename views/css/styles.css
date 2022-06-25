@@ -12,5 +12,8 @@
   padding: 30px;
 }
 
-
+.img-responsive {
+  width: 95%;
+  height: auto;
+}
 
