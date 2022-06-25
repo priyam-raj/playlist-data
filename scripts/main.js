@@ -103,7 +103,6 @@ function returnedToSeconds(input) {
 		// totalSecondsThree /= 1.50;
 		// totalSecondsFour /= 1.75;
 		// totalSecondsFive /= 2.0;
-
 		return totalSeconds;
 	} catch (e) {
 
@@ -158,7 +157,6 @@ async function finalisedDuration(playlistId, apiKey) {
 		throw new Error(`Invalid Playlist ID or YouTube API Key`);
 	}
 
-
 	// Final Formatting
 	function formatDuration(duration) {
 		let seconds = duration;
@@ -169,7 +167,6 @@ async function finalisedDuration(playlistId, apiKey) {
 		seconds = Math.floor(seconds);
 		return { hours, minutes, seconds };
 	}
-
 
 	try {
 		extractedPlaylistIDId = extractID(playlistId);
