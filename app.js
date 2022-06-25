@@ -23,18 +23,10 @@ app.use(express.static("views"));
 app.post("/search", async (req, res) => {
   const playlisturl = req.body.playlistID;
 
-  if(await checkID.checkID(playlisturl, apiKey)){
-    resp = await main.finalisedDuration(playlisturl, apiKey);
-    res.send(
-      "This playlist is " +
-        resp.hours +
-        " hours " +
-        resp.minutes +
-        " minutes " +
-        resp.seconds +
-        " seconds long"
-    );
-  }else {
+  if(await checkID.checkID(playlisturl)){
+    resp = await main.finalisedDuration(playlisturl);
+    res.send(resp.toString()); 
+    } else {
     res.send("Great Scott! You sure this playlist exists in this Time and Universe?");
   }
 });

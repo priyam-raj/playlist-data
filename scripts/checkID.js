@@ -1,10 +1,11 @@
 const axios = require('axios');
+let API_KEY = process.env.YOUTUBE_API_KEY;
 
-async function checkID (playlistID, apiKey){
+async function checkID (playlistID){
 	let checkRes;
-    await axios.get(`https://youtube.googleapis.com/youtube/v3/playlistItems?part=status&maxResults=1&playlistId=${playlistID}&key=${apiKey}`)
+    await axios.get(`https://youtube.googleapis.com/youtube/v3/playlistItems?part=status&maxResults=1&playlistId=${playlistID}&key=${API_KEY}`)
     .then((res)=>{
-      console.log(res.data);
+      // console.log(res.data);
       checkRes = true;
       
     })

@@ -3,9 +3,7 @@ async function getData() {
   // document.getElementById("showData").innerHTML = "Loading...";
   var playlistEntered = document.getElementById("myText").value;
   var checkedPlaylistID = is_playlist_url(playlistEntered);
-  console.log(playlistEntered);
   if (checkedPlaylistID != "NULL"){
-    console.log(checkedPlaylistID);
     finalFetch(checkedPlaylistID);
   }
   else {
@@ -66,8 +64,19 @@ function is_playlist_url(str) {
 //console.log(is_playlist_url());
 
 
+	// Formatting seconds into Hours, Minutes and Seconds. 
+	function formatDuration(duration) {
+		let seconds = duration;
+		let hours = Math.floor(seconds / 3600);
+		seconds -= hours * 3600;
+		let minutes = Math.floor(seconds / 60);
+		seconds -= minutes * 60;
+		seconds = Math.floor(seconds);
+		return { hours, minutes, seconds };
+	}
 
 
+// DOM
 function finalFetch(playlistEntered){
   $.post(
     "/search",
@@ -75,12 +84,13 @@ function finalFetch(playlistEntered){
       playlistID: playlistEntered,
     },
     function (fetchedData) {
-      let fetchData = fetchedData;
-      console.log(fetchedData);
+      let fetchData = formatDuration(parseInt(fetchedData));
       document.getElementById("showData").className = "flash mt-3 flash-success Box anim-hover-grow";
-      document.getElementById("showData").innerHTML = fetchData;
+      document.getElementById("showData").innerHTML = "This playlist is " + fetchData.hours + " hours " + fetchData.minutes + " minutes " + fetchData.seconds + " seconds.";
       document.getElementById("submit").className = "btn";
       document.getElementById("submit").textContent = "Fetch Again";
     }
   );
 }
+
+

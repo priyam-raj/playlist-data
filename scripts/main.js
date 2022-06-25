@@ -152,21 +152,11 @@ function extractID(playlist) {
 
 
 // Inputs from app.js
-async function finalisedDuration(playlistId, apiKey) {
-	if (!playlistId || !apiKey) {
+async function finalisedDuration(playlistId) {
+	if (!playlistId) {
 		throw new Error(`Invalid Playlist ID or YouTube API Key`);
 	}
 
-	// Final Formatting
-	function formatDuration(duration) {
-		let seconds = duration;
-		let hours = Math.floor(seconds / 3600);
-		seconds -= hours * 3600;
-		let minutes = Math.floor(seconds / 60);
-		seconds -= minutes * 60;
-		seconds = Math.floor(seconds);
-		return { hours, minutes, seconds };
-	}
 
 	try {
 		extractedPlaylistIDId = extractID(playlistId);
@@ -176,12 +166,11 @@ async function finalisedDuration(playlistId, apiKey) {
 		await getVideosDuration();
 
 		// Formatted Duration (For Update)
-		TotalDurationTwo = Math.floor(finalTotalDuration / 1.25);
-		TotalDurationThree = Math.floor(finalTotalDuration / 1.5);
-		TotalDurationFour = Math.floor(finalTotalDuration / 1.75);
-		TotalDurationFive = Math.floor(finalTotalDuration / 2.0);
-
-		return (formattedDuration = formatDuration(finalTotalDuration));
+		// TotalDurationTwo = Math.floor(finalTotalDuration / 1.25);
+		// TotalDurationThree = Math.floor(finalTotalDuration / 1.5);
+		// TotalDurationFour = Math.floor(finalTotalDuration / 1.75);
+		// TotalDurationFive = Math.floor(finalTotalDuration / 2.0);
+		return (finalTotalDuration);
 	}
 
 	catch (e) {
