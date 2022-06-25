@@ -11,7 +11,7 @@ async function getData() {
 
 
   else {
-    document.getElementById("showData").innerHTML = "This is an invalid URL";
+    document.getElementById("showData").innerHTML = "You sure that playlist URL is correct?";
     document.getElementById("showData").className = "flash mt-3 flash-error ";
     document.getElementById("submit").textContent = "Fetch Again";
     document.getElementById("gif-container").innerHTML = '<img src="assets/dustin-boom.gif" class="img-responsive"></img>';
@@ -94,7 +94,7 @@ function finalFetch(playlistEntered){
     function (fetchedData) {
 
       if (fetchedData === "API_Error") {
-        document.getElementById("showData").innerHTML = "Great Scott! Are you sure this playlist is in the right Time and in the right Universe?";
+        document.getElementById("showData").innerHTML = "Great Scott! Are you sure this playlist is in the right time and in the right universe?";
         document.getElementById("showData").className = "flash mt-3 flash-warn";
         document.getElementById("gif-container").innerHTML = '<img src="assets/great-scott.gif"></img>';
         document.getElementById("submit").textContent = "Fetch Again";
