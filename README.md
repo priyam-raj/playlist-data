@@ -1,5 +1,7 @@
 
-# Playlist - Data - Fetcher
+<img align="right" width="100" height="100" src="https://playlistdata.com/favicon.png">
+
+# YouTube Playlist Data Fetcher
 
 Ever wondered how long it would exactly take to complete the longest playlist on YouTube? We have got just the right thing for you! Up until now, there was no way (officially) to check the Duration or Length of any playlist. 
 
