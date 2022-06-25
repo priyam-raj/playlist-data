@@ -17,10 +17,9 @@
 
 			totalSeconds = days * 86400 + hours * 3600 + minutes * 60 + seconds;
 		} else {
-			// throw new Error(`Invalid date: ${input}`);
-			// throw without a catch caused error. 
+			console.log(toSeconds);
 		}
-
+		
 		// totalSecondsTwo /= 1.25;
 		// totalSecondsThree /= 1.50;
 		// totalSecondsFour /= 1.75;

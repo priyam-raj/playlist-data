@@ -27,7 +27,6 @@ While watching any video playlist it could be often necessary to look into the t
 - [ejs - npm](https://www.npmjs.com/package/ejs)
 - [dotenv - npm](https://www.npmjs.com/package/dotenv) 
 - [express - npm](https://www.npmjs.com/package/express)
-- [gypd - npm](https://www.npmjs.com/package/gypd)
 
 
 &nbsp;&nbsp;
