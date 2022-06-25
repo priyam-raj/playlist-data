@@ -13,7 +13,6 @@ const { request } = require("express");
 const { json } = require("body-parser");
 var resp;
 
-
 app.set("view engine", "ejs");
 
 app.use(express.urlencoded({ extended: true }));
@@ -25,7 +24,7 @@ app.post("/search", async (req, res) => {
   const playlisturl = req.body.playlistID;
 
   if(await checkID.checkID(playlisturl, apiKey)){
-    resp = await main.mainfun(playlisturl, apiKey);
+    resp = await main.finalisedDuration(playlisturl, apiKey);
     res.send(
       "This playlist is " +
         resp.hours +
@@ -38,15 +37,12 @@ app.post("/search", async (req, res) => {
   }else {
     res.send("Great Scott! You sure this playlist exists in this Time and Universe?");
   }
-  
-  
 });
 
 app.get("/", function (req, res) {
   displaySeconds = resp;
   res.render("index", { printedSeconds: displaySeconds });
 });
-
 
 
 app.listen(process.env.PORT || 3000, () => {
