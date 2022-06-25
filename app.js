@@ -5,10 +5,13 @@ const port = process.env.PORT;
 const axios = require("axios");
 const API_KEY = process.env.YOUTUBE_API_KEY;
 const {request} = require("express");
-const {json} = require("body-parser");
 const returnedVideoIds = [];
 const videoDetailsURL = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails&fields=items/contentDetails/duration`;
 const playlistItemsURL = `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&fields=items/contentDetails/videoId,nextPageToken`;
+
+
+// resp = Final returned duration (in seconds)
+let resp;
 
 
 app.set("view engine", "ejs");
@@ -213,9 +216,6 @@ async function checkID(playlistID) {
   return checkRes;
 } 
 
-
-// resp = Final returned duration (in seconds)
-var resp;
 
 
 // Checks for API error.
