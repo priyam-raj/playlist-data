@@ -2,23 +2,26 @@ const axios = require("axios");
 require('dotenv').config();
 
 let API_KEY = process.env.YOUTUBE_API_KEY;
-let gNextPageToken = null;
 const returnedVideoIds = [];
 
-const playlistItemsURL = `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&fields=items/contentDetails/videoId,nextPageToken`;
 const videoDetailsURL = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails&fields=items/contentDetails/duration`;
+const playlistItemsURL = `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&fields=items/contentDetails/videoId,nextPageToken`;
 
 
+let newPageToken = null;
 
-function getNextVideosDetailsURL(id) {
+
+//Generates URL for required videos. 
+function generateVideosURL(id) {
 	return `${videoDetailsURL}&id=${id}&key=${API_KEY}`;
 }
 
 
+// Sets a token for next page request. 
 async function getVideoIdsForPageToken() {
 	try {
 		const { data } = await axios.get(getNextTokenURL());
-		const nextPageToken = data.nextPageToken;
+		const nextPageToken = data.newPageToken;
 
 		const videoIds = data.items.map((video) => {
 			return video.contentDetails.videoId;
@@ -36,17 +39,19 @@ async function getVideoIdsForPageToken() {
 	}
 }
 
+
 // Next page for more results (Max 50 per page)
 function getNextTokenURL() {
-	return gNextPageToken
-		? `${playlistItemsURL}&playlistId=${gPlaylistId}&pageToken=${gNextPageToken}&key=${API_KEY}`
-		: `${playlistItemsURL}&playlistId=${gPlaylistId}&key=${API_KEY}`;
+	return newPageToken
+		? `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}&pageToken=${newPageToken}&key=${API_KEY}`
+		: `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}&key=${API_KEY}`;
 }
+
 
 // Returns details for videos in the playlist.
 async function getDetailsForVideoIds(id) {
 	try {
-		const { data } = await axios.get(getNextVideosDetailsURL(id));
+		const { data } = await axios.get(generateVideosURL(id));
 		return data.items;
 	} catch (e) {
 		throw new Error(e.message);
@@ -54,14 +59,15 @@ async function getDetailsForVideoIds(id) {
 	}
 }
 
+
 // Navigates between the videos per page and stores them. (Maximum 50)
 async function getPlaylistData() {
 	try {
 		const { videoIds, nextPageToken } = await getVideoIdsForPageToken();
-		gNextPageToken = nextPageToken;
+		newPageToken = nextPageToken;
 		returnedVideoIds.push(getDetailsForVideoIds(videoIds));
 		// console.log(videoIds);
-		if (gNextPageToken) {
+		if (newPageToken) {
 			await getPlaylistData();
 		}
 	} catch (e) {
@@ -126,6 +132,8 @@ async function getVideosDuration() {
 	}
 }
 
+
+
 // Ensures only PlaylistID is entered.
 function extractID(playlist) {
 	try {
@@ -143,6 +151,8 @@ function extractID(playlist) {
 	}
 }
 
+
+// Inputs from app.js
 async function finalisedDuration(playlistId, apiKey) {
 	if (!playlistId || !apiKey) {
 		throw new Error(`Invalid Playlist ID or YouTube API Key`);
@@ -162,7 +172,7 @@ async function finalisedDuration(playlistId, apiKey) {
 
 
 	try {
-		gPlaylistId = extractID(playlistId);
+		extractedPlaylistIDId = extractID(playlistId);
 		finalTotalDuration = 0;
 		returnedVideoIds.length = 0;
 		await getPlaylistData();
@@ -182,7 +192,7 @@ async function finalisedDuration(playlistId, apiKey) {
 		console.log("Formatting Error.");
 	}
 
-
 }
+
 
 module.exports = { finalisedDuration };
