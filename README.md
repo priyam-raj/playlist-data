@@ -7,18 +7,14 @@ Playlist Data Fetcher is a simple web-app which extracts the metadata of the You
 
 While watching any video playlist it could be often necessary to look into the time constraint. Thus this data would prove to be extremely useful for anyone who deals with playlists on YouTube, a good example of this could be someone who watches educational course playlists. Just like Udemy you can know how long is it going to be. 
 
-
+&nbsp;&nbsp;
 ## Features
 
 - Automated Light/Dark Mode
 - Simple One-Page Navigation
 - Fast Results
 
-
-
-## 🔗 Links
-[![Playlist Data ](https://img.shields.io/website/http/www.website.com/path/to/page.html.svg.)](https://playlistdata.com/)
-
+&nbsp;&nbsp;
 
 
 ## Resources & References
@@ -32,7 +28,7 @@ While watching any video playlist it could be often necessary to look into the t
 - [gypd - npm](https://www.npmjs.com/package/gypd)
 
 
-
+&nbsp;&nbsp;
 
 ## Authors
 - [@priyam-raj](https://github.com/priyam-raj)
