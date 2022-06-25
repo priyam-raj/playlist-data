@@ -21,7 +21,7 @@ While watching any video playlist it could be often necessary to look into the t
 
 ## Resources & References
 - [Primer CSS](https://primer.style/)
-- [YouTube API V3)(https://developers.google.com/youtube/v3/getting-started)
+- [YouTube API V3](https://developers.google.com/youtube/v3/getting-started)
 - [axios - npm](https://www.npmjs.com/package/axios)
 - [body-parser - npm](https://www.npmjs.com/package/body-parser)
 - [ejs - npm](https://www.npmjs.com/package/ejs)
