@@ -3,6 +3,9 @@ async function getData() {
   document.getElementById("showData").innerHTML = "";
   document.getElementById("showData").className = "";
   document.getElementById("gif-container").innerHTML = '';
+  document.getElementById("loader").className = "AnimatedEllipsis";
+
+
   var playlistEntered = document.getElementById("myText").value;
   var checkedPlaylistID = is_playlist_url(playlistEntered);
   if (checkedPlaylistID != "NULL"){
@@ -15,6 +18,8 @@ async function getData() {
     document.getElementById("showData").className = "flash mt-3 flash-error ";
     document.getElementById("submit").textContent = "Fetch Again";
     document.getElementById("gif-container").innerHTML = '<img src="assets/dustin-boom.gif" class="img-responsive"></img>';
+    document.getElementById("loader").className = "";
+
   }
 
 
@@ -83,30 +88,32 @@ function is_playlist_url(str) {
 
 // DOM
 function finalFetch(playlistEntered){
-  $.post(
+
+    $.post(
     "/search",
-    {
-      playlistID: playlistEntered,
-    },
+    {playlistID: playlistEntered,},
 
-    
+    function (response) {
 
-    function (fetchedData) {
-
-      if (fetchedData === "API_Error") {
+      if (response === "API_Error") {
         document.getElementById("showData").innerHTML = "Great Scott! Are you sure this playlist is in the right time and in the right universe?";
         document.getElementById("showData").className = "flash mt-3 flash-warn";
         document.getElementById("gif-container").innerHTML = '<img src="assets/great-scott.gif"></img>';
         document.getElementById("submit").textContent = "Fetch Again";
+        document.getElementById("loader").className = "";
+
 
       }
 
       else { 
-      let fetchData = formatDuration(parseInt(fetchedData));
+
+      let fetchedData = formatDuration(parseInt(response));
       document.getElementById("showData").className = "flash mt-3 flash-success Box anim-hover-grow" ;
-      document.getElementById("showData").innerHTML = "This playlist is " + fetchData.hours + " hours " + fetchData.minutes + " minutes " + fetchData.seconds + " seconds.";
+      document.getElementById("showData").innerHTML = "This playlist is " + fetchedData.hours + " hours " + fetchedData.minutes + " minutes " + fetchedData.seconds + " seconds";
       document.getElementById("submit").className = "btn";
       document.getElementById("submit").textContent = "Fetch Again";
+      document.getElementById("loader").className = "";
+
 
     }
     }
