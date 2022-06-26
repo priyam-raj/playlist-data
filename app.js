@@ -9,10 +9,6 @@ const videoDetailsURL = `https://www.googleapis.com/youtube/v3/videos?part=conte
 const playlistItemsURL = `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&fields=items/contentDetails/videoId,nextPageToken`;
 
 
-// resp = Final returned duration (in seconds)
-let resp;
-
-
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 
@@ -75,9 +71,7 @@ async function getPlaylistData() {
 		newPageToken = nextPageToken;
 		const returnedVideoIds = [];
 		returnedVideoIds.push(getDetailsForVideoIds(videoIds));
-
 		const videoGroups = await Promise.all(returnedVideoIds);
-
 		for (const group of videoGroups) {
 			for (const video of group) {
 				finalTotalDuration += returnedToSeconds(video.contentDetails.duration);
@@ -134,24 +128,6 @@ function returnedToSeconds(input) {
 
 
 
-// Add the duration of all videos fetched.
-// async function getVideosDuration() {
-// 	try {
-// 		const videoGroups = await Promise.all(returnedVideoIds);
-
-// 		for (const group of videoGroups) {
-// 			for (const video of group) {
-// 				finalTotalDuration += returnedToSeconds(video.contentDetails.duration);
-// 			}
-// 		}
-// 	} catch (e) {
-// 		throw new Error(e.message);
-// 		console.log("Error while adding the duration of all videos fetched.");
-// 	}
-// }
-
-
-
 // Ensures only PlaylistID is entered.
 function extractID(playlist) {
 	try {
@@ -205,6 +181,9 @@ async function finalisedDuration(playlistId) {
 app.post("/search", async (req, res) => {
   const playlisturl = req.body.playlistID;
 
+// resp = Final returned duration (in seconds)
+let resp;  
+
 // Function that checks if the playlist id is correct.
 async function checkID(playlistID) {
   let checkRes;
@@ -237,8 +216,7 @@ async function checkID(playlistID) {
 
 
 app.get("/", function (req, res) {
-  displaySeconds = resp;
-  res.render("index", { printedSeconds: displaySeconds });
+  res.render("index");
 });
 
 
