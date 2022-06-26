@@ -14,12 +14,20 @@ app.use(express.urlencoded({ extended: true }));
 
 // Serves the public folder all together.
 app.use(express.static("views"));
-let newPageToken = null;
 
 
 //Generates URL for required videos. 
 function generateVideosURL(id) {
 	return `${videoDetailsURL}&id=${id}&key=${API_KEY}`;
+}
+
+let newPageToken = null;
+
+// Next page for more results (Max 50 per page)
+function getNextTokenURL() {
+	return newPageToken
+		? `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}&pageToken=${newPageToken}&key=${API_KEY}`
+		: `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}&key=${API_KEY}`;
 }
 
 
@@ -43,13 +51,6 @@ async function getVideoIdsForPageToken() {
 	}
 }
 
-
-// Next page for more results (Max 50 per page)
-function getNextTokenURL() {
-	return newPageToken
-		? `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}&pageToken=${newPageToken}&key=${API_KEY}`
-		: `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}&key=${API_KEY}`;
-}
 
 
 // Returns details for videos in the playlist.
@@ -79,7 +80,7 @@ async function getPlaylistData() {
 		}
 
 		// console.log(videoIds);
-		if (newPageToken) {
+		if (nextPageToken) {
 			await getPlaylistData();
 		}
 	} catch (e) {
@@ -157,6 +158,7 @@ async function finalisedDuration(playlistId) {
 		extractedPlaylistIDId = extractID(playlistId);
 		finalTotalDuration = 0;
 		// returnedVideoIds.length = 0;
+		newPageToken = null;
 		await getPlaylistData();
 		// await getVideosDuration();
 
