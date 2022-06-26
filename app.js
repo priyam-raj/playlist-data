@@ -5,7 +5,6 @@ const port = process.env.PORT;
 const axios = require("axios");
 const API_KEY = process.env.YOUTUBE_API_KEY;
 const {request} = require("express");
-const returnedVideoIds = [];
 const videoDetailsURL = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails&fields=items/contentDetails/duration`;
 const playlistItemsURL = `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&fields=items/contentDetails/videoId,nextPageToken`;
 
@@ -74,7 +73,17 @@ async function getPlaylistData() {
 	try {
 		const { videoIds, nextPageToken } = await getVideoIdsForPageToken();
 		newPageToken = nextPageToken;
+		const returnedVideoIds = [];
 		returnedVideoIds.push(getDetailsForVideoIds(videoIds));
+
+		const videoGroups = await Promise.all(returnedVideoIds);
+
+		for (const group of videoGroups) {
+			for (const video of group) {
+				finalTotalDuration += returnedToSeconds(video.contentDetails.duration);
+			}
+		}
+
 		// console.log(videoIds);
 		if (newPageToken) {
 			await getPlaylistData();
@@ -126,20 +135,20 @@ function returnedToSeconds(input) {
 
 
 // Add the duration of all videos fetched.
-async function getVideosDuration() {
-	try {
-		const videoGroups = await Promise.all(returnedVideoIds);
+// async function getVideosDuration() {
+// 	try {
+// 		const videoGroups = await Promise.all(returnedVideoIds);
 
-		for (const group of videoGroups) {
-			for (const video of group) {
-				finalTotalDuration += returnedToSeconds(video.contentDetails.duration);
-			}
-		}
-	} catch (e) {
-		throw new Error(e.message);
-		console.log("Error while adding the duration of all videos fetched.");
-	}
-}
+// 		for (const group of videoGroups) {
+// 			for (const video of group) {
+// 				finalTotalDuration += returnedToSeconds(video.contentDetails.duration);
+// 			}
+// 		}
+// 	} catch (e) {
+// 		throw new Error(e.message);
+// 		console.log("Error while adding the duration of all videos fetched.");
+// 	}
+// }
 
 
 
@@ -171,9 +180,9 @@ async function finalisedDuration(playlistId) {
 	try {
 		extractedPlaylistIDId = extractID(playlistId);
 		finalTotalDuration = 0;
-		returnedVideoIds.length = 0;
+		// returnedVideoIds.length = 0;
 		await getPlaylistData();
-		await getVideosDuration();
+		// await getVideosDuration();
 
 		// Formatted Duration (For Update)
 		// TotalDurationTwo = Math.floor(finalTotalDuration / 1.25);
@@ -196,7 +205,6 @@ async function finalisedDuration(playlistId) {
 app.post("/search", async (req, res) => {
   const playlisturl = req.body.playlistID;
 
-
 // Function that checks if the playlist id is correct.
 async function checkID(playlistID) {
   let checkRes;
@@ -216,12 +224,11 @@ async function checkID(playlistID) {
   return checkRes;
 } 
 
-
-
 // Checks for API error.
   if(await checkID(playlisturl)){
     resp = await finalisedDuration(playlisturl);
     res.send(resp.toString()); 
+	console.log("Someone just fetched a playlist of " + resp + " seconds.")
     } else {
     res.send("API_Error");
   }
