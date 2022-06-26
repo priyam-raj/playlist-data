@@ -21,12 +21,12 @@ function generateVideosURL(id) {
 	return `${videoDetailsURL}&id=${id}&key=${API_KEY}`;
 }
 
-let newPageToken = null;
+let newPageToken = {};
 
 // Next page for more results (Max 50 per page)
 function getNextTokenURL() {
-	return newPageToken
-		? `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}&pageToken=${newPageToken}&key=${API_KEY}`
+	return newPageToken.token
+		? `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}&pageToken=${newPageToken.token}&key=${API_KEY}`
 		: `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}&key=${API_KEY}`;
 }
 
@@ -35,6 +35,7 @@ function getNextTokenURL() {
 async function getVideoIdsForPageToken() {
 	try {
 		const { data } = await axios.get(getNextTokenURL());
+
 		const nextPageToken = data.nextPageToken;
 		const videoIds = data.items.map((video) => {
 			return video.contentDetails.videoId;
@@ -69,7 +70,7 @@ async function getDetailsForVideoIds(id) {
 async function getPlaylistData() {
 	try {
 		const { videoIds, nextPageToken } = await getVideoIdsForPageToken();
-		newPageToken = nextPageToken;
+		newPageToken.token = nextPageToken;
 		const returnedVideoIds = [];
 		returnedVideoIds.push(getDetailsForVideoIds(videoIds));
 		const videoGroups = await Promise.all(returnedVideoIds);
@@ -158,7 +159,7 @@ async function finalisedDuration(playlistId) {
 		extractedPlaylistIDId = extractID(playlistId);
 		finalTotalDuration = 0;
 		// returnedVideoIds.length = 0;
-		newPageToken = null;
+		// newPageToken = null;
 		await getPlaylistData();
 		// await getVideosDuration();
 
