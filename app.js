@@ -23,6 +23,8 @@ function generateVideosURL(id) {
 	return `${videoDetailsURL}&id=${id}&key=${API_KEY}`;
 }
 
+
+
 async function getVideoIdsForPageToken(url) {
     try {
         const { data } = await axios.get(url);
@@ -158,11 +160,8 @@ async function finalisedDuration(playlistId) {
 
 	try {
 		extractedPlaylistIDId = extractID(playlistId);
-		finalTotalDuration = 0;
-
 		// returnedVideoIds.length = 0;
 		await getPlaylistTotalDuration();
-
 		// Formatted Duration (For Update)
 		// TotalDurationTwo = Math.floor(finalTotalDuration / 1.25);
 		// TotalDurationThree = Math.floor(finalTotalDuration / 1.5);
@@ -185,10 +184,9 @@ async function finalisedDuration(playlistId) {
 
 	app.post("/search", async (req, res) => {
 
-		const playlisturl = req.body.playlistID;
+	const playlisturl = req.body.playlistID;
 
-	// resp = Final returned duration (in seconds)
-	let resp;  
+
 
 	// Function that checks if the playlist id is correct.
 	async function checkID(playlistID) {
@@ -214,7 +212,9 @@ async function finalisedDuration(playlistId) {
 
 	// Checks for API error.
 	if(await checkID(playlisturl)){
-		resp = await finalisedDuration(playlisturl);
+			// resp = Final returned duration (in seconds)
+
+	    let resp = await finalisedDuration(playlisturl);
 		res.send(resp.toString()); 
 		console.log("Someone just fetched a playlist of " + resp + " seconds.")
 		} else {
