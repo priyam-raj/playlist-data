@@ -1,10 +1,10 @@
 const express = require("express");
+const axios = require("axios");
 require('dotenv').config();
 const app = express();
 const port = process.env.PORT;
-const axios = require("axios");
 const API_KEY = process.env.YOUTUBE_API_KEY;
-const {request} = require("express");
+
 const videoDetailsURL = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails&fields=items/contentDetails/duration`;
 const playlistItemsURL = `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&fields=items/contentDetails/videoId,nextPageToken`;
 
@@ -16,15 +16,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("views"));
 
 
-
-
 //Generates URL for required videos. 
 function generateVideosURL(id) {
 	return `${videoDetailsURL}&id=${id}&key=${API_KEY}`;
 }
 
 
-
+// Requests for videoIDS and nextPageToken(s)
 async function getVideoIdsForPageToken(url) {
     try {
         const { data } = await axios.get(url);
@@ -44,37 +42,6 @@ async function getVideoIdsForPageToken(url) {
     }
 }
 
-// Navigates between the videos per page and adds them (Maximum 50)
-async function getPlaylistTotalDuration(newPageToken) {
-    try {        
-        let url = newPageToken
-        ? `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}&pageToken=${newPageToken}&key=${API_KEY}`
-        : `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}&key=${API_KEY}`;
-
-        let finalTotalDuration = 0;
-
-        const { videoIds, nextPageToken } = await getVideoIdsForPageToken(url);
-        const returnedVideoIds = [];
-        returnedVideoIds.push(getDetailsForVideoIds(videoIds));
-        const videoGroups = await Promise.all(returnedVideoIds);
-
-        for (const group of videoGroups) {
-            for (const video of group) {
-                finalTotalDuration += returnedToSeconds(video.contentDetails.duration);
-            }
-        }
-        
-        if (nextPageToken) {
-            finalTotalDuration += await getPlaylistTotalDuration(nextPageToken);
-        }
-        return finalTotalDuration;
-    } catch (e) {
-        throw new Error(e.message);
-        console.log("Error while navigating between video pages.");
-    }
-}
-
-
 
 // Returns details for videos in the playlist.
 async function getDetailsForVideoIds(id) {
@@ -89,8 +56,6 @@ async function getDetailsForVideoIds(id) {
 
 
 
-
-
 // Formats all the returned duration info into seconds. 
 function returnedToSeconds(input) {
 	try {
@@ -99,7 +64,7 @@ function returnedToSeconds(input) {
 		let hours = 0;
 		let minutes = 0;
 		let seconds = 0;
-		let totalSeconds;
+		let totalSeconds = 0;
 
 		if (daysHrsMinsSecs.test(input)) {
 			let toMatch = daysHrsMinsSecs.exec(input);
@@ -112,13 +77,14 @@ function returnedToSeconds(input) {
 			if (toMatch[4]) seconds = Number(
         toMatch[4]);
 
-			totalSeconds = days * 86400 + hours * 3600 + minutes * 60 + seconds;
+		totalSeconds = days * 86400 + hours * 3600 + minutes * 60 + seconds;
 
 		} else {
 			console.log(returnedToSeconds);
 		}
 
 		return totalSeconds;
+
 	} catch (e) {
 
 		console.error(e);
@@ -130,16 +96,58 @@ function returnedToSeconds(input) {
 
 
 
+async function getPlaylistTotalDuration(newPageToken) {
+
+    try {        
+        // Step 1: Create the required query URL based on the newPageToken parameter
+        let url = newPageToken
+		
+        ? `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}&pageToken=${newPageToken}&key=${API_KEY}`
+        : `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}&key=${API_KEY}`;
+
+        // Step 2: Start a local duration counter
+        let totalDuration = 0;
+
+        // Step 3: Get the video details based on the URL created in Step 1
+        const { videoIds, nextPageToken } = await getVideoIdsForPageToken(url);
+        const returnedVideoIds = [];
+        returnedVideoIds.push(getDetailsForVideoIds(videoIds));
+        const videoGroups = await Promise.all(returnedVideoIds);
+
+        for (const group of videoGroups) {
+            for (const video of group) {
+                // Step 4: Get the durations in seconds and add it to the local duration counter created in Step 2
+                totalDuration += returnedToSeconds(video.contentDetails.duration);
+            }
+        }
+
+        // Step 5: Check if the return of Step 3 has a nextPageToken, if so do a recursive call to self with the new token
+        if (nextPageToken) {
+            totalDuration += await getPlaylistTotalDuration(nextPageToken);
+        }
+
+        // Step 6: Return the final value, which will propogate back in a recursive function
+        return totalDuration;
+		
+
+	
+    } catch (e) {
+        throw new Error(e.message);
+        console.log("Error while navigating between video pages.");
+    }
+}
+
+
+
 // Ensures only PlaylistID is entered.
 function extractID(playlist) {
 	try {
 		const scheme = `https://www.youtube.com/playlist?list=`;
 		const isFullURL = playlist.startsWith(scheme);
-
 		if (!isFullURL) return playlist;
-
 		const fullURLRegex = /playlist\?list=(.*)/;
 		const id = playlist.match(fullURLRegex)[1];
+		console.log("The playlist id is: " + id);
 		return id;
 	} catch (e) {
 		throw new Error(e.message);
@@ -149,25 +157,16 @@ function extractID(playlist) {
 
 
 
-
-
 // Inputs from app.js
 async function finalisedDuration(playlistId) {
 	if (!playlistId) {
 		throw new Error(`Invalid Playlist ID or YouTube API Key`);
 	}
-
-
 	try {
-		extractedPlaylistIDId = extractID(playlistId);
-		// returnedVideoIds.length = 0;
-		await getPlaylistTotalDuration();
-		// Formatted Duration (For Update)
-		// TotalDurationTwo = Math.floor(finalTotalDuration / 1.25);
-		// TotalDurationThree = Math.floor(finalTotalDuration / 1.5);
-		// TotalDurationFour = Math.floor(finalTotalDuration / 1.75);
-		// TotalDurationFive = Math.floor(finalTotalDuration / 2.0);
 
+
+// Could be the issue
+		extractedPlaylistIDId = extractID(playlistId);
 		return (getPlaylistTotalDuration());
 	}
 
@@ -179,14 +178,7 @@ async function finalisedDuration(playlistId) {
 }
 
 
-
-
-
 	app.post("/search", async (req, res) => {
-
-	const playlisturl = req.body.playlistID;
-
-
 
 	// Function that checks if the playlist id is correct.
 	async function checkID(playlistID) {
@@ -209,17 +201,21 @@ async function finalisedDuration(playlistId) {
 
 
 
+	(async () => {
+		extractedPlaylistIDId = null;
+		const playlisturl = req.body.playlistID;
+		if(await checkID(playlisturl)){
+			let resp = await finalisedDuration(playlisturl);
+			console.log("Someone just fetched a playlist of " + resp + " seconds.")
+			res.send(resp.toString()); 
+			} 
+			
+			else {
+			res.send("API_Error");
+		}
+	  })();
 
-	// Checks for API error.
-	if(await checkID(playlisturl)){
-			// resp = Final returned duration (in seconds)
 
-	    let resp = await finalisedDuration(playlisturl);
-		res.send(resp.toString()); 
-		console.log("Someone just fetched a playlist of " + resp + " seconds.")
-		} else {
-		res.send("API_Error");
-	}
 	});
 
 
