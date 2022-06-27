@@ -16,26 +16,28 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("views"));
 
 
+
+(() => {
+
 //Generates URL for required videos. 
 function generateVideosURL(id) {
 	return `${videoDetailsURL}&id=${id}&key=${API_KEY}`;
 }
 
-let newPageToken = {};
+let newPageToken = null;
 
 // Next page for more results (Max 50 per page)
 function getNextTokenURL() {
-	return newPageToken.token
-		? `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}&pageToken=${newPageToken.token}&key=${API_KEY}`
+	console.log(newPageToken);
+	return newPageToken
+		? `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}&pageToken=${newPageToken}&key=${API_KEY}`
 		: `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}&key=${API_KEY}`;
 }
-
 
 // Sets a token for next page request. 
 async function getVideoIdsForPageToken() {
 	try {
 		const { data } = await axios.get(getNextTokenURL());
-
 		const nextPageToken = data.nextPageToken;
 		const videoIds = data.items.map((video) => {
 			return video.contentDetails.videoId;
@@ -70,10 +72,14 @@ async function getDetailsForVideoIds(id) {
 async function getPlaylistData() {
 	try {
 		const { videoIds, nextPageToken } = await getVideoIdsForPageToken();
-		newPageToken.token = nextPageToken;
+		let pageToken = nextPageToken;
+		newPageToken = pageToken;
 		const returnedVideoIds = [];
 		returnedVideoIds.push(getDetailsForVideoIds(videoIds));
 		const videoGroups = await Promise.all(returnedVideoIds);
+
+
+
 		for (const group of videoGroups) {
 			for (const video of group) {
 				finalTotalDuration += returnedToSeconds(video.contentDetails.duration);
@@ -148,6 +154,9 @@ function extractID(playlist) {
 }
 
 
+
+
+
 // Inputs from app.js
 async function finalisedDuration(playlistId) {
 	if (!playlistId) {
@@ -158,10 +167,10 @@ async function finalisedDuration(playlistId) {
 	try {
 		extractedPlaylistIDId = extractID(playlistId);
 		finalTotalDuration = 0;
+
 		// returnedVideoIds.length = 0;
-		// newPageToken = null;
+		
 		await getPlaylistData();
-		// await getVideosDuration();
 
 		// Formatted Duration (For Update)
 		// TotalDurationTwo = Math.floor(finalTotalDuration / 1.25);
@@ -181,50 +190,59 @@ async function finalisedDuration(playlistId) {
 
 
 
-app.post("/search", async (req, res) => {
-  const playlisturl = req.body.playlistID;
 
-// resp = Final returned duration (in seconds)
-let resp;  
 
-// Function that checks if the playlist id is correct.
-async function checkID(playlistID) {
-  let checkRes;
-  await axios
-    .get(
-      `https://youtube.googleapis.com/youtube/v3/playlistItems?part=status&maxResults=1&playlistId=${playlistID}&key=${API_KEY}`
-    )
-    .then((res) => {
-      checkRes = true;
-    })
-    .catch((error) => {
-      if (error.response) {
-        console.log(error.response.status);
-        checkRes = false;
-      }
-    });
-  return checkRes;
-} 
+	app.post("/search", async (req, res) => {
 
-// Checks for API error.
-  if(await checkID(playlisturl)){
-    resp = await finalisedDuration(playlisturl);
-    res.send(resp.toString()); 
-	console.log("Someone just fetched a playlist of " + resp + " seconds.")
-    } else {
-    res.send("API_Error");
-  }
-});
+		const playlisturl = req.body.playlistID;
+
+	// resp = Final returned duration (in seconds)
+	let resp;  
+
+	// Function that checks if the playlist id is correct.
+	async function checkID(playlistID) {
+	let checkRes;
+	await axios
+		.get(
+		`https://youtube.googleapis.com/youtube/v3/playlistItems?part=status&maxResults=1&playlistId=${playlistID}&key=${API_KEY}`
+		)
+		.then((res) => {
+		checkRes = true;
+		})
+		.catch((error) => {
+		if (error.response) {
+			console.log(error.response.status);
+			checkRes = false;
+		}
+		});
+	return checkRes;
+	} 
 
 
 
-app.get("/", function (req, res) {
-  res.render("index");
-});
+
+	// Checks for API error.
+	if(await checkID(playlisturl)){
+		resp = await finalisedDuration(playlisturl);
+		res.send(resp.toString()); 
+		console.log("Someone just fetched a playlist of " + resp + " seconds.")
+		} else {
+		res.send("API_Error");
+	}
+	});
 
 
 
-// Port Route.
-app.listen(process.env.PORT || 3000, () => {
-  console.log(`Playlist data is now running baby!)`);
-});
+	app.get("/", function (req, res) {
+	res.render("index");
+	});
+
+
+
+	// Port Route.
+	app.listen(process.env.PORT || 3000, () => {
+	console.log(`Playlist data is now running baby!)`);
+	});
+
+
+})();
