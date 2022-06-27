@@ -17,41 +17,59 @@ app.use(express.static("views"));
 
 
 
-(() => {
 
 //Generates URL for required videos. 
 function generateVideosURL(id) {
 	return `${videoDetailsURL}&id=${id}&key=${API_KEY}`;
 }
 
-let newPageToken = null;
-
-// Next page for more results (Max 50 per page)
-function getNextTokenURL() {
-	console.log(newPageToken);
-	return newPageToken
-		? `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}&pageToken=${newPageToken}&key=${API_KEY}`
-		: `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}&key=${API_KEY}`;
+async function getVideoIdsForPageToken(url) {
+    try {
+        const { data } = await axios.get(url);
+        const nextPageToken = data.nextPageToken;
+        const videoIds = data.items.map((video) => {
+            return video.contentDetails.videoId;
+        });
+        return { videoIds, nextPageToken };
+    } catch (e) {
+        if (e.response) {
+            const { code, message } = e.response.data.error;
+            throw new Error(`StatusCode ${code}. Reason: ${message}`);
+            console.log("Errow while fetching videos list.");
+        } else {
+            throw new Error(e.message);
+        }
+    }
 }
 
-// Sets a token for next page request. 
-async function getVideoIdsForPageToken() {
-	try {
-		const { data } = await axios.get(getNextTokenURL());
-		const nextPageToken = data.nextPageToken;
-		const videoIds = data.items.map((video) => {
-			return video.contentDetails.videoId;
-		});
-		return { videoIds, nextPageToken };
-	} catch (e) {
-		if (e.response) {
-			const { code, message } = e.response.data.error;
-			throw new Error(`StatusCode ${code}. Reason: ${message}`);
-			console.log("Errow while fetching videos list.");
-		} else {
-			throw new Error(e.message);
-		}
-	}
+// Navigates between the videos per page and adds them (Maximum 50)
+async function getPlaylistTotalDuration(newPageToken) {
+    try {        
+        let url = newPageToken
+        ? `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}&pageToken=${newPageToken}&key=${API_KEY}`
+        : `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}&key=${API_KEY}`;
+
+        let finalTotalDuration = 0;
+
+        const { videoIds, nextPageToken } = await getVideoIdsForPageToken(url);
+        const returnedVideoIds = [];
+        returnedVideoIds.push(getDetailsForVideoIds(videoIds));
+        const videoGroups = await Promise.all(returnedVideoIds);
+
+        for (const group of videoGroups) {
+            for (const video of group) {
+                finalTotalDuration += returnedToSeconds(video.contentDetails.duration);
+            }
+        }
+        
+        if (nextPageToken) {
+            finalTotalDuration += await getPlaylistTotalDuration(nextPageToken);
+        }
+        return finalTotalDuration;
+    } catch (e) {
+        throw new Error(e.message);
+        console.log("Error while navigating between video pages.");
+    }
 }
 
 
@@ -68,33 +86,7 @@ async function getDetailsForVideoIds(id) {
 }
 
 
-// Navigates between the videos per page and stores them. (Maximum 50)
-async function getPlaylistData() {
-	try {
-		const { videoIds, nextPageToken } = await getVideoIdsForPageToken();
-		let pageToken = nextPageToken;
-		newPageToken = pageToken;
-		const returnedVideoIds = [];
-		returnedVideoIds.push(getDetailsForVideoIds(videoIds));
-		const videoGroups = await Promise.all(returnedVideoIds);
 
-
-
-		for (const group of videoGroups) {
-			for (const video of group) {
-				finalTotalDuration += returnedToSeconds(video.contentDetails.duration);
-			}
-		}
-
-		// console.log(videoIds);
-		if (nextPageToken) {
-			await getPlaylistData();
-		}
-	} catch (e) {
-		throw new Error(e.message);
-		console.log("Error while navigating between video pages.");
-	}
-}
 
 
 // Formats all the returned duration info into seconds. 
@@ -169,8 +161,7 @@ async function finalisedDuration(playlistId) {
 		finalTotalDuration = 0;
 
 		// returnedVideoIds.length = 0;
-		
-		await getPlaylistData();
+		await getPlaylistTotalDuration();
 
 		// Formatted Duration (For Update)
 		// TotalDurationTwo = Math.floor(finalTotalDuration / 1.25);
@@ -178,7 +169,7 @@ async function finalisedDuration(playlistId) {
 		// TotalDurationFour = Math.floor(finalTotalDuration / 1.75);
 		// TotalDurationFive = Math.floor(finalTotalDuration / 2.0);
 
-		return (finalTotalDuration);
+		return (getPlaylistTotalDuration());
 	}
 
 	catch (e) {
@@ -245,4 +236,3 @@ async function finalisedDuration(playlistId) {
 	});
 
 
-})();
