@@ -8,7 +8,7 @@ async function getData() {
 
   var playlistEntered = document.getElementById("myText").value;
   var checkedPlaylistID = is_playlist_url(playlistEntered);
-  if (checkedPlaylistID != "NULL"){
+  if (checkedPlaylistID != "NULL") {
     finalFetch(checkedPlaylistID);
   }
 
@@ -29,11 +29,11 @@ async function getData() {
 function is_url(myURL) {
   var pattern = new RegExp(
     "^(https?:\\/\\/)?" + // protocol
-      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|" + // domain name
-      "((\\d{1,3}\\.){3}\\d{1,3}))" + // ip (v4) address
-      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + //port
-      "(\\?[;&amp;a-z\\d%_.~+=-]*)?" + // query string
-      "(\\#[-a-z\\d_]*)?$",
+    "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|" + // domain name
+    "((\\d{1,3}\\.){3}\\d{1,3}))" + // ip (v4) address
+    "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + //port
+    "(\\?[;&amp;a-z\\d%_.~+=-]*)?" + // query string
+    "(\\#[-a-z\\d_]*)?$",
     "i"
   );
   return pattern.test(myURL);
@@ -74,24 +74,24 @@ function is_playlist_url(str) {
 //console.log(is_playlist_url());
 
 
-	// Formatting seconds into Hours, Minutes and Seconds. 
-	function formatDuration(duration) {
-		let seconds = duration;
-		let hours = Math.floor(seconds / 3600);
-		seconds -= hours * 3600;
-		let minutes = Math.floor(seconds / 60);
-		seconds -= minutes * 60;
-		seconds = Math.floor(seconds);
-		return { hours, minutes, seconds };
-	}
+// Formatting seconds into Hours, Minutes and Seconds. 
+function formatDuration(duration) {
+  let seconds = duration;
+  let hours = Math.floor(seconds / 3600);
+  seconds -= hours * 3600;
+  let minutes = Math.floor(seconds / 60);
+  seconds -= minutes * 60;
+  seconds = Math.floor(seconds);
+  return { hours, minutes, seconds };
+}
 
 
 // DOM
-function finalFetch(playlistEntered){
+function finalFetch(playlistEntered) {
 
-    $.post(
+  $.post(
     "/search",
-    {playlistID: playlistEntered,},
+    { playlistID: playlistEntered, },
 
     function (response) {
 
@@ -105,19 +105,60 @@ function finalFetch(playlistEntered){
 
       }
 
-      else { 
+      else {
 
-      let fetchedData = formatDuration(parseInt(response));
-      document.getElementById("showData").className = "flash mt-3 flash-success Box anim-hover-grow" ;
-      document.getElementById("showData").innerHTML = "This playlist is " + fetchedData.hours + " hours " + fetchedData.minutes + " minutes " + fetchedData.seconds + " seconds";
-      document.getElementById("submit").className = "btn";
-      document.getElementById("submit").textContent = "Fetch Again";
-      document.getElementById("loader").className = "";
+        let fetchedData = formatDuration(parseInt(response));
+        document.getElementById("showData").className = "flash mt-3 flash-success Box anim-hover-grow";
+        document.getElementById("showData").innerHTML = "This playlist is " + fetchedData.hours + " hours " + fetchedData.minutes + " minutes " + fetchedData.seconds + " seconds";
+        document.getElementById("submit").className = "btn";
+        document.getElementById("submit").textContent = "Fetch Again";
+        document.getElementById("loader").className = "";
 
 
-    }
+      }
     }
   );
 }
+
+
+
+// function formatDuration(duration) {
+//   let seconds = duration;
+//   let hours = Math.floor(seconds / 3600);
+//   seconds -= hours * 3600;
+//   let minutes = Math.floor(seconds / 60);
+//   seconds -= minutes * 60;
+//   seconds = Math.floor(seconds);
+//   return { hours, minutes, seconds };
+// }
+// function formatDurationWithSpeeds(duration) {
+//   var oneX, onePointTwoFiveX, onePointFiveX, onePointSevenFiveX, twoX;
+//   oneX = formatDuration(duration);
+//   // console.log(oneX);
+
+//   onePointTwoFiveX = formatDuration(duration / 1.25);
+//   // console.log(onePointTwoFiveX);
+
+//   onePointFiveX = formatDuration(duration / 1.5);
+//   // console.log(onePointFiveX);
+
+//   onePointSevenFiveX = formatDuration(duration / 1.75);
+//   // console.log(onePointSevenFiveX);
+
+//   twoX = formatDuration(duration / 2);
+//   // console.log(twoX);
+
+//   return { oneX, onePointTwoFiveX, onePointFiveX, onePointSevenFiveX, twoX };
+// }
+
+// var x = formatDurationWithSpeeds(11700); //3h 15m
+
+// console.log(x.oneX);
+// console.log(x.onePointTwoFiveX);
+// console.log(x.onePointFiveX);
+// console.log(x.onePointSevenFiveX);
+// console.log(x.twoX);
+
+
 
 
