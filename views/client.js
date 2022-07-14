@@ -6,7 +6,8 @@ async function getData() {
   document.getElementById("loader").className = "AnimatedEllipsis";
 
 
-  var playlistEntered = document.getElementById("myText").value;
+  var getPlaylistLink = document.getElementById("myText").value;
+  let playlistEntered = getPlaylistLink.trim();  //removes accidental spaces during copying
   var checkedPlaylistID = is_playlist_url(playlistEntered);
   if (checkedPlaylistID != "NULL") {
     finalFetch(checkedPlaylistID);
@@ -24,6 +25,11 @@ async function getData() {
 
 
 }
+
+//Preventing default form action
+document.querySelector('#formSubmitted').addEventListener('submit', (e)=>{e.defaultPrevented});
+
+
 
 // URL Validator
 function is_url(myURL) {
