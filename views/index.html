@@ -9,7 +9,7 @@
     <!--  Essential META Tags -->
     <meta property="og:title" content="Playlist Data • Find the length/duration of any playlist on YouTube">
     <meta property="og:description" content="Tool to fetch duration/length of any Youtube Playlist">
-    <meta property="og:type" content="webapp"/>
+    <meta property="og:type" content="webapp" />
     <meta name="keywords" content="youtube playlist length, playlist duration, playlist at 2x, youtube playlist size">
     <meta property="og:image" content="https://playlistdata.com/assets/cover.jpg">
     <meta property="og:url" content="https://playlistdata.com">
@@ -25,15 +25,15 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/Primer/20.3.0-rc.a7df1fad/primer.css" rel="stylesheet" />
     <link rel="icon" type="image/x-icon" href="assets/favicon.png">
 
-       <!-- Google Analytics Code -->
-       <script async src="https://www.googletagmanager.com/gtag/js?id=G-PP6Q66YMZZ"></script>
-       <script>
-           window.dataLayer = window.dataLayer || [];
-           function gtag() { dataLayer.push(arguments); }
-           gtag('js', new Date());
-           gtag('config', 'G-PP6Q66YMZZ');
-       </script>
-       
+    <!-- Google Analytics Code -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PP6Q66YMZZ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-PP6Q66YMZZ');
+    </script>
+
 </head>
 
 <body data-color-mode="auto" data-light-theme="light" data-dark-theme="dark">
@@ -43,7 +43,7 @@
         <nav class="text-bold text-right">
             <a class="text-inherit d-inline-block color-fg-default" href="https://github.com/priyam-raj/playlist-data"
                 target="_blank">GitHub</a>
-                <a class="text-inherit d-inline-block color-fg-default pl-4" href="https://thumbnails.pages.dev/"
+            <a class="text-inherit d-inline-block color-fg-default pl-4" href="https://thumbnails.pages.dev/"
                 target="_blank">Fetch Thumbnails</a>
         </nav>
     </div>
@@ -51,9 +51,9 @@
 
 
     <!-- for heading and para -->
-    <div class="container-lg second-container text-center">
-        <h2 class="h1 text-uppercase red-colored">YouTube Playlist Data</h1>
-            <p class="f3-light">Tool to fetch duration/length of any Youtube Playlist</p>
+    <div class="container-sm second-container">
+        <h2 class="h1 text-uppercase red-colored pl-3">YouTube Playlist Data</h1>
+            <p class="f3-light pl-3">Tool to fetch duration/length of any Youtube Playlist</p>
 
             <!-- <p class=  "para">Best way to find out the length of any playlist on YouTube.</p> -->
 
@@ -73,24 +73,73 @@
                     <p class="note">e.g. https://youtube.com/playlist?list=PLhTm4jreEBz9G2eYFIePmMbyVmeoLeSMF</p>
 
                 </form>
+
+                <div class="successMessage pt-5">
+                <div class="color-bg-success-emphasis color-fg-on-emphasis p-2 rounded mb-4">Fetching successful!</div>
             </div>
-
-
-
-            <div class="resultingMessages container-sm p-3">
-
-                <div id="gif-container" class="width-fit"></div>
-            
-                <p class="f3-light" id="showData" ></p>
-                <p class="f3-light" id="showError"></p>
-                <p class="f1" id="loader"></p>
-
-                <p class="f3-light" id="showAPIError"></p>
             </div>
 
     </div>
 
 
+
+    <!-- 
+    <div class="blankslate">
+        <h3 id="showDuration" class="blankslate-heading pb-3"></h3>
+        <p id="saveTimeMessage"></p>
+        <p id = "onePointTwoFiveX"></p>
+        <p id = "onePointFiveX"></p>
+        <p id = "onePointSevenFiveX"></p>
+        <p id = "twoX"></p>
+      </div> -->
+
+
+
+
+    <div class="resultArea anim-fade-in p-4">
+        <div class="blankslate">
+            <!-- <%= octicon "octoface", :height = 24, :class => "blankslate-icon" %> -->
+            <svg class="octicon octicon-octoface blankslate-icon  anim-rotate" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24" width="24" height="24">
+                <path
+                    d="M12.5 7.25a.75.75 0 00-1.5 0v5.5c0 .27.144.518.378.651l3.5 2a.75.75 0 00.744-1.302L12.5 12.315V7.25z">
+                </path>
+                <path fill-rule="evenodd"
+                    d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1zM2.5 12a9.5 9.5 0 1119 0 9.5 9.5 0 01-19 0z">
+                </path>
+            </svg>
+            <h3 id="showDuration" class="blankslate-heading"></h3>
+        </div>
+        <div class="Box Box container-sm">
+            <div class="Box-header Box-header--danger">
+                <h3 class="Box-title" id="saveTimeMessage">
+                </h3>
+            </div>
+            <ul>
+                <li class="Box-row text-center" id="onePointTwoFiveX">
+                </li>
+                <li class="Box-row text-center" id="onePointFiveX">
+                </li>
+                <li class="Box-row text-center" id="onePointSevenFiveX">
+                </li>
+                <li class="Box-row text-center" id="twoX">
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="resultingMessages container-sm p-3">
+        <div id="gif-container" class="width-fit"></div>
+        <p class="f3-light" id="showData"></p>
+        <p class="f3-light" id="showError"></p>
+        <p class="f3-light" id="showAPIError"></p>
+    </div>
+
+
+    <div class="blankslate">
+        <p class="f1" id="loader"></p>
+    </div>
 
 
     <!-- Footer -->
@@ -122,7 +171,7 @@
                                 height="24" src="https://avatars.githubusercontent.com/u/28523767?v=4">
                             <img class="avatar tooltipped tooltipped-s" alt="Harsh Govind" aria-label="Harsh Govind"
                                 height="24" src="https://avatars.githubusercontent.com/u/71700319?v=4">
-                                <img class="avatar tooltipped tooltipped-s" alt="Rounik Prashar" aria-label="Rounik Prashar"
+                            <img class="avatar tooltipped tooltipped-s" alt="Rounik Prashar" aria-label="Rounik Prashar"
                                 height="24" src="https://avatars.githubusercontent.com/u/56750020?v=4">
                             <img class="avatar tooltipped tooltipped-s" alt="Satarupa Deb" aria-label="Satarupa Deb"
                                 height="24" src="https://avatars.githubusercontent.com/u/84276219?v=4">
@@ -136,18 +185,18 @@
         <p class="pt-12 float-left color-text-tertiary pb-3">
             <> with ♥ by <br>
                 <a class=color-fg-default href="https://priyamraj.com" target="_blank">Priyam Raj</a>, <a
-                    class=color-fg-default href="https://github.com/abhijeetananddeo" target="_blank">Abhijeet Anand</a>,
+                    class=color-fg-default href="https://github.com/abhijeetananddeo" target="_blank">Abhijeet
+                    Anand</a>,
                 <br>
                 <a class=color-fg-default href="https://github.com/harsh-govind" target="_blank">Harsh Govind</a>,
-                <a class=color-fg-default href="https://github.com/Rounik10" target="_blank">Rounik Prashar</a> <br>and 
+                <a class=color-fg-default href="https://github.com/Rounik10" target="_blank">Rounik Prashar</a> <br>and
                 <a class=color-fg-default href="https://github.com/Satarupa22-SD" target="_blank">Satarupa Deb.</a>
         </p>
 
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script type="text/javascript" src="./client.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 
 

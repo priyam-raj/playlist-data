@@ -1,10 +1,15 @@
+$(".resultArea").hide();
+$(".successMessage").hide();
+
+
+
+
 async function getData() {
   document.getElementById("submit").textContent = "Fetching..";
   document.getElementById("showData").innerHTML = "";
   document.getElementById("showData").className = "";
   document.getElementById("gif-container").innerHTML = '';
   document.getElementById("loader").className = "AnimatedEllipsis";
-
 
   var getPlaylistLink = document.getElementById("myText").value;
   let playlistEntered = getPlaylistLink.trim();  //removes accidental spaces during copying
@@ -52,6 +57,8 @@ function list_check(a, b, c, d, e) {
     return false;
   }
 }
+
+
 function is_playlist_url(str) {
   if (str[str.length - 1] == "/") {
     str = str.slice(0, str.length - 1);
@@ -80,17 +87,6 @@ function is_playlist_url(str) {
 //console.log(is_playlist_url());
 
 
-// Formatting seconds into Hours, Minutes and Seconds. 
-function formatDuration(duration) {
-  let seconds = duration;
-  let hours = Math.floor(seconds / 3600);
-  seconds -= hours * 3600;
-  let minutes = Math.floor(seconds / 60);
-  seconds -= minutes * 60;
-  seconds = Math.floor(seconds);
-  return { hours, minutes, seconds };
-}
-
 
 // DOM
 function finalFetch(playlistEntered) {
@@ -107,18 +103,28 @@ function finalFetch(playlistEntered) {
         document.getElementById("gif-container").innerHTML = '<img src="assets/great-scott.gif"></img>';
         document.getElementById("submit").textContent = "Fetch Again";
         document.getElementById("loader").className = "";
-
-
       }
 
       else {
 
-        let fetchedData = formatDuration(parseInt(response));
-        document.getElementById("showData").className = "flash mt-3 flash-success Box anim-hover-grow";
-        document.getElementById("showData").innerHTML = "This playlist is " + fetchedData.hours + " hours " + fetchedData.minutes + " minutes " + fetchedData.seconds + " seconds";
+        
+        let fetchedData = formatDurationWithSpeeds(parseInt(response));
+
+        // document.getElementById("showData").className = "flash mt-3 flash-success Box anim-hover-grow";
+        // document.getElementById("showData").innerHTML = "Successfully fetched!";
+        document.getElementById("showDuration").innerHTML = "The length of this playlist is<br>" + fetchedData.oneX.hours + " hours " + fetchedData.oneX.minutes + " minutes " + fetchedData.oneX.seconds + " seconds";
+        document.getElementById("saveTimeMessage").innerHTML = "But you can save some time if you watch it in:";
+        document.getElementById("onePointTwoFiveX").innerHTML = "1.25x: " + fetchedData.onePointTwoFiveX.hours + " hours " + fetchedData.onePointTwoFiveX.minutes + " minutes " + fetchedData.onePointTwoFiveX.seconds + " seconds";
+        document.getElementById("onePointFiveX").innerHTML = "1.50x: " + fetchedData.onePointFiveX.hours + " hours " + fetchedData.onePointFiveX.minutes + " minutes " + fetchedData.onePointFiveX.seconds + " seconds";
+        document.getElementById("onePointSevenFiveX").innerHTML = "1.75x: " + fetchedData.onePointFiveX.hours + " hours " + fetchedData.onePointFiveX.minutes + " minutes " + fetchedData.onePointFiveX.seconds + " seconds";
+        document.getElementById("twoX").innerHTML = "2.00x: " + fetchedData.twoX.hours + " hours " + fetchedData.twoX.minutes + " minutes " + fetchedData.twoX.seconds + " seconds";
+
         document.getElementById("submit").className = "btn";
         document.getElementById("submit").textContent = "Fetch Again";
         document.getElementById("loader").className = "";
+
+        $(".resultArea").show();
+        $(".successMessage").show();
 
 
       }
@@ -128,36 +134,40 @@ function finalFetch(playlistEntered) {
 
 
 
-// function formatDuration(duration) {
-//   let seconds = duration;
-//   let hours = Math.floor(seconds / 3600);
-//   seconds -= hours * 3600;
-//   let minutes = Math.floor(seconds / 60);
-//   seconds -= minutes * 60;
-//   seconds = Math.floor(seconds);
-//   return { hours, minutes, seconds };
-// }
-// function formatDurationWithSpeeds(duration) {
-//   var oneX, onePointTwoFiveX, onePointFiveX, onePointSevenFiveX, twoX;
-//   oneX = formatDuration(duration);
-//   // console.log(oneX);
 
-//   onePointTwoFiveX = formatDuration(duration / 1.25);
-//   // console.log(onePointTwoFiveX);
+// Formatting seconds into Hours, Minutes and Seconds. 
+function formatDuration(duration) {
+  let seconds = duration;
+  let hours = Math.floor(seconds / 3600);
+  seconds -= hours * 3600;
+  let minutes = Math.floor(seconds / 60);
+  seconds -= minutes * 60;
+  seconds = Math.floor(seconds);
+  return { hours, minutes, seconds };
+}
 
-//   onePointFiveX = formatDuration(duration / 1.5);
-//   // console.log(onePointFiveX);
+function formatDurationWithSpeeds(duration) {
+  let oneX, onePointTwoFiveX, onePointFiveX, onePointSevenFiveX, twoX;
 
-//   onePointSevenFiveX = formatDuration(duration / 1.75);
-//   // console.log(onePointSevenFiveX);
+  oneX = formatDuration(duration);
+  // console.log(oneX);
 
-//   twoX = formatDuration(duration / 2);
-//   // console.log(twoX);
+  onePointTwoFiveX = formatDuration(duration / 1.25);
+  // console.log(onePointTwoFiveX);
 
-//   return { oneX, onePointTwoFiveX, onePointFiveX, onePointSevenFiveX, twoX };
-// }
+  onePointFiveX = formatDuration(duration / 1.5);
+  // console.log(onePointFiveX);
 
-// var x = formatDurationWithSpeeds(11700); //3h 15m
+  onePointSevenFiveX = formatDuration(duration / 1.75);
+  // console.log(onePointSevenFiveX);
+
+  twoX = formatDuration(duration / 2);
+  // console.log(twoX);
+
+  return { oneX, onePointTwoFiveX, onePointFiveX, onePointSevenFiveX, twoX };
+}
+
+// let x = formatDurationWithSpeeds(11700); //3h 15m
 
 // console.log(x.oneX);
 // console.log(x.onePointTwoFiveX);
