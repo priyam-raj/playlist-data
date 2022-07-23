@@ -5,7 +5,7 @@
 
 Ever wondered how long it would exactly take to complete the longest playlist on YouTube? We have got just the right thing for you! Up until now, there was no way (officially) to check the Duration or Length of any playlist. 
 
-Playlist Data Fetcher is a simple web-app which extracts the metadata of the YouTube playlist entered by the user and provides useful data in terms of playlist length, total videos in the playlist, the duration needed (this will be added in the next update) to complete the playlist if playback speed is altered to either 1.25x, 1.5x, 1.75 or 2x.
+Playlist Data Fetcher is a simple web-app which extracts the metadata of the YouTube playlist entered by the user and provides useful data in terms of playlist length, total videos in the playlist, the time needed to complete the playlist even if playback speed is altered to either 1.25x, 1.5x, 1.75 or 2x.
 
 While watching any video playlist it could be often necessary to look into the time constraint. Thus this data would prove to be extremely useful for anyone who deals with playlists on YouTube, a good example of this could be someone who watches educational course playlists. Just like Udemy you can know how long is it going to be. 
 
