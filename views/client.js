@@ -1,7 +1,14 @@
 $(".resultArea").hide();
 $(".successMessage").hide();
 
+1
 
+$("#myText").keypress(function(event){ 
+  if(event.keyCode == 13){ 
+    $("#submit").click(); 
+    return false;
+  }
+});
 
 
 async function getData() {
@@ -125,12 +132,15 @@ function finalFetch(playlistEntered) {
 
         $(".resultArea").show();
         $(".successMessage").show();
+        // $(".header").hide();
 
 
       }
     }
   );
 }
+
+
 
 
 
