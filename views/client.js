@@ -10,20 +10,19 @@ $("#myText").keypress(function (event) {
   }
 });
 
-$('#myText').each(function() {
-  var form_data = new FormData('form');
-  $(this).data('serialized', form_data);
-}).on('change input', function() {
-  var form_data1 = new FormData('form');
-  $(this).find('#submits').attr('disabled', form_data1 == $(this).data('serialized'));
-});
-
-
-
-
+$("#myText")
+  .each(function () {
+    var form_data = new FormData(document.getElementById("formSubmitted"));
+    $(this).data("serialized", form_data);
+  })
+  .on("change input", function () {
+    var form_data1 = new FormData(document.getElementById("formSubmitted"));
+    $(this)
+      .find("#submits")
+      .attr("disabled", form_data1 == $(this).data("serialized"));
+  });
 
 async function getData() {
-  
   document.getElementById("submit").textContent = "Fetching..";
   document.getElementById("showData").innerHTML = "";
   document.getElementById("showData").className = "";
@@ -34,24 +33,12 @@ async function getData() {
   let playlistEntered = getPlaylistLink.trim(); //removes accidental spaces during copying
   var checkedPlaylistID = is_playlist_url(playlistEntered);
 
-
-  
   if (checkedPlaylistID != "NULL") {
-    
     finalFetch(checkedPlaylistID);
-    
-  document.getElementById("myText").setAttribute("disabled", "disabled"); 
-  document.getElementById("submit").setAttribute("disabled", "disabled"); 
 
-  
-  }
-  
-  
-  
-
-
-  else {
-
+    document.getElementById("myText").setAttribute("disabled", "disabled");
+    document.getElementById("submit").setAttribute("disabled", "disabled");
+  } else {
     document.getElementById("showData").innerHTML =
       "You sure that playlist URL is correct?";
     document.getElementById("showData").className = "flash mt-3 flash-error ";
@@ -60,14 +47,13 @@ async function getData() {
       '<img src="assets/dustin-boom.gif" class="img-responsive"></img>';
     document.getElementById("loader").className = "";
     $(".successMessage").show();
-    document.getElementById("statusMessageText").className = "color-bg-closed-emphasis color-fg-on-emphasis p-2 rounded mb-4";
+    document.getElementById("statusMessageText").className =
+      "color-bg-closed-emphasis color-fg-on-emphasis p-2 rounded mb-4";
     document.getElementById("statusMessageText").innerHTML = "Fetching failed!";
-    $("#myText").removeAttr("disabled"); 
-    $("#submit").removeAttr("disabled"); 
-    
+    $("#myText").removeAttr("disabled");
+    $("#submit").removeAttr("disabled");
+
     $(".resultArea").hide();
-
-
   }
 }
 
@@ -141,25 +127,32 @@ function finalFetch(playlistEntered) {
         document.getElementById("submit").textContent = "Fetch Again";
         document.getElementById("loader").className = "";
         $(".successMessage").show();
-        document.getElementById("statusMessageText").className = "color-bg-attention-emphasis color-fg-on-emphasis p-2 rounded mb-4";
-        document.getElementById("statusMessageText").innerHTML = "Fetching failed!";
-        $("#myText").removeAttr("disabled"); 
-        $("#submit").removeAttr("disabled"); 
-        
+        document.getElementById("statusMessageText").className =
+          "color-bg-attention-emphasis color-fg-on-emphasis p-2 rounded mb-4";
+        document.getElementById("statusMessageText").innerHTML =
+          "Fetching failed!";
+        $("#myText").removeAttr("disabled");
+        $("#submit").removeAttr("disabled");
+
         $(".resultArea").hide();
-
       } else {
+        let fetchedData = formatDurationWithSpeeds(response.totalDuration);
+        let thumbnail = response.firstVideoIds;
+        let numberOfVideos = response.numberOfVideos;
+        let thumbnailURL = "https://img.youtube.com/vi/" + thumbnail + "/mqdefault.jpg";
 
-        let fetchedData = formatDurationWithSpeeds(parseInt(response));
-        
-  $("#myText").removeAttr("disabled"); 
-  $("#submit").removeAttr("disabled"); 
-  
-        document.getElementById("statusMessageText").className = "color-bg-success-emphasis color-fg-on-emphasis p-2 rounded mb-4";
-        document.getElementById("statusMessageText").innerHTML = "Fetching successful!";
+        $("#footerData").text("This playlist contains " + numberOfVideos + " videos.");
+        $("#myText").removeAttr("disabled");
+        $("#submit").removeAttr("disabled");
+
+        document.getElementById("statusMessageText").className =
+          "color-bg-success-emphasis color-fg-on-emphasis p-2 rounded mb-4";
+        document.getElementById("statusMessageText").innerHTML =
+          "Fetching successful!";
         // document.getElementById("showData").className = "flash mt-3 flash-success Box anim-hover-grow";
         // document.getElementById("showData").innerHTML = "Successfully fetched!";
-        
+
+        document.getElementById("showThumbnail").src = thumbnailURL;
         document.getElementById("showDuration").innerHTML =
           "The length of this playlist is<br>" +
           fetchedData.oneX.hours +
@@ -209,7 +202,7 @@ function finalFetch(playlistEntered) {
 
         $(".resultArea").show();
         $(".successMessage").show();
-        
+
         // $(".header").hide();
       }
     }

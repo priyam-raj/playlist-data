@@ -21,3 +21,13 @@
   margin-top: -50px;
 }
 
+
+#showThumbnail{
+  max-width:480px;
+  border-radius: 5px;
+}
+
+
+.image {
+  margin: auto;
+}

@@ -97,7 +97,11 @@
 
 
 
+  
+
     <div class="resultArea anim-fade-in p-4">
+
+    
         <div class="blankslate">
             <!-- <%= octicon "octoface", :height = 24, :class => "blankslate-icon" %> -->
             <svg class="octicon octicon-octoface blankslate-icon  anim-rotate" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -111,8 +115,14 @@
             </svg>
             <h3 id="showDuration" class="blankslate-heading"></h3>
         </div>
-        <div class="Box Box container-sm">
-            <div class="Box-header Box-header--danger">
+
+        <figure class="text-center">
+            <img id="showThumbnail">
+        </figure>
+     
+
+        <div class="Box container-sm">
+            <div class="Box-header">
                 <h3 class="Box-title" id="saveTimeMessage">
                 </h3>
             </div>
@@ -126,7 +136,11 @@
                 <li class="Box-row text-center" id="twoX">
                 </li>
             </ul>
+                <div class="Box-footer f6 text-center" id="footerData">
+                  </div>
         </div>
+
+       
 
     </div>
 
