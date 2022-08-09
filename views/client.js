@@ -1,7 +1,6 @@
 $(".resultArea").hide();
 $(".successMessage").hide();
 
-1;
 
 $("#myText").keypress(function (event) {
   if (event.keyCode == 13) {
