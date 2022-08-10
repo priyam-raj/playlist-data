@@ -140,7 +140,18 @@ function finalFetch(playlistEntered) {
         let numberOfVideos = response.numberOfVideos;
         let thumbnailURL = "https://img.youtube.com/vi/" + thumbnail + "/mqdefault.jpg";
 
-        $("#footerData").text("This playlist contains " + numberOfVideos + " videos.");
+        let averageSeconds = response.totalDuration / response.numberOfVideos;
+        averageSeconds = formatDuration(averageSeconds);
+        document.getElementById("showAverageDuration").innerHTML =
+        "Average duration of each video on this playlist is<br>" +
+        averageSeconds.hours +
+        " hours " +
+        averageSeconds.minutes +
+        " minutes " +
+        averageSeconds.seconds +
+        " seconds";
+
+        $("#footerData").text(numberOfVideos + " videos");
         $("#myText").removeAttr("disabled");
         $("#submit").removeAttr("disabled");
 
@@ -148,9 +159,6 @@ function finalFetch(playlistEntered) {
           "color-bg-success-emphasis color-fg-on-emphasis p-2 rounded mb-4";
         document.getElementById("statusMessageText").innerHTML =
           "Fetching successful!";
-        // document.getElementById("showData").className = "flash mt-3 flash-success Box anim-hover-grow";
-        // document.getElementById("showData").innerHTML = "Successfully fetched!";
-
         document.getElementById("showThumbnail").src = thumbnailURL;
         document.getElementById("showDuration").innerHTML =
           "The length of this playlist is<br>" +
@@ -161,7 +169,7 @@ function finalFetch(playlistEntered) {
           fetchedData.oneX.seconds +
           " seconds";
         document.getElementById("saveTimeMessage").innerHTML =
-          "But you can save some time if you watch it in:";
+          "You can save some time if you watch it in:";
         document.getElementById("onePointTwoFiveX").innerHTML =
           "1.25x: " +
           fetchedData.onePointTwoFiveX.hours +
@@ -201,8 +209,6 @@ function finalFetch(playlistEntered) {
 
         $(".resultArea").show();
         $(".successMessage").show();
-
-        // $(".header").hide();
       }
     }
   );
@@ -221,29 +227,10 @@ function formatDuration(duration) {
 
 function formatDurationWithSpeeds(duration) {
   let oneX, onePointTwoFiveX, onePointFiveX, onePointSevenFiveX, twoX;
-
   oneX = formatDuration(duration);
-  // console.log(oneX);
-
   onePointTwoFiveX = formatDuration(duration / 1.25);
-  // console.log(onePointTwoFiveX);
-
   onePointFiveX = formatDuration(duration / 1.5);
-  // console.log(onePointFiveX);
-
   onePointSevenFiveX = formatDuration(duration / 1.75);
-  // console.log(onePointSevenFiveX);
-
   twoX = formatDuration(duration / 2);
-  // console.log(twoX);
-
   return { oneX, onePointTwoFiveX, onePointFiveX, onePointSevenFiveX, twoX };
 }
-
-// let x = formatDurationWithSpeeds(11700); //3h 15m
-
-// console.log(x.oneX);
-// console.log(x.onePointTwoFiveX);
-// console.log(x.onePointFiveX);
-// console.log(x.onePointSevenFiveX);
-// console.log(x.twoX);

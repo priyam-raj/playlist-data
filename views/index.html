@@ -54,32 +54,32 @@
     <div class="container-sm second-container header">
         <h2 class="h1 text-uppercase red-colored pl-3">Playlist Data</h1>
             <h2 class="h4 pl-3  anim-fade-in" style="margin-top:-7px;">for YouTube</h1>
-            <p class="f3-light pl-3 pt-3">Tool to fetch duration/length of any Youtube Playlist</p>
+                <p class="f3-light pl-3 pt-3">Tool to fetch duration/length of any Youtube Playlist</p>
+    </div>
+
+    <!-- <p class=  "para">Best way to find out the length of any playlist on YouTube.</p> -->
+
+
+    <!-- Playlist URL Placeholder -->
+    <div class="fetch-area container-sm p-3">
+        <form id="formSubmitted">
+            <div class="input-group">
+                <input class="form-control width-full input-monospace" type="text" id="myText" name="playlisturl"
+                    placeholder="Enter a YouTube Playlist URL">
+                <span class="input-group-button">
+                    <button class="btn" type="button" name="button" id="submit" onclick="getData()">
+                        Fetch</button>
+                </span>
+
+            </div>
+            <p class="note pl-1">e.g. https://youtube.com/playlist?list=PLhTm4jreEBz9G2eYFIePmMbyVmeoLeSMF</p>
+
+        </form>
+
+        <div class="successMessage pt-5 anim-scale-in">
+            <div id="statusMessageText">Fetching successful!</div>
         </div>
-
-            <!-- <p class=  "para">Best way to find out the length of any playlist on YouTube.</p> -->
-
-
-            <!-- Playlist URL Placeholder -->
-            <div class="fetch-area container-sm p-3">
-                <form id="formSubmitted">
-                    <div class="input-group">
-                        <input class="form-control width-full input-monospace" type="text" id="myText"
-                            name="playlisturl" placeholder="Enter a YouTube Playlist URL">
-                        <span class="input-group-button">
-                            <button class="btn" type="button" name="button" id="submit" onclick="getData()">
-                                Fetch</button>
-                        </span>
-
-                    </div>
-                    <p class="note pl-1">e.g. https://youtube.com/playlist?list=PLhTm4jreEBz9G2eYFIePmMbyVmeoLeSMF</p>
-
-                </form>
-
-                <div class="successMessage pt-5 anim-scale-in">
-                <div id="statusMessageText">Fetching successful!</div>
-            </div>
-            </div>
+    </div>
 
 
 
@@ -97,15 +97,14 @@
 
 
 
-  
 
-    <div class="resultArea anim-fade-in p-4">
 
-    
+    <div class="resultArea anim-fade-in p-4 container-sm">
+
         <div class="blankslate">
             <!-- <%= octicon "octoface", :height = 24, :class => "blankslate-icon" %> -->
-            <svg class="octicon octicon-octoface blankslate-icon  anim-rotate" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24" width="24" height="24">
+            <svg class="octicon octicon-octoface blankslate-icon  anim-rotate" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                 <path
                     d="M12.5 7.25a.75.75 0 00-1.5 0v5.5c0 .27.144.518.378.651l3.5 2a.75.75 0 00.744-1.302L12.5 12.315V7.25z">
                 </path>
@@ -116,10 +115,15 @@
             <h3 id="showDuration" class="blankslate-heading"></h3>
         </div>
 
-        <figure class="text-center">
+        <div class="playlist-meta pb-6">
             <img id="showThumbnail">
-        </figure>
-     
+            <span class="f1" id="footerData"></span>
+        </div>
+
+ 
+
+
+
 
         <div class="Box container-sm">
             <div class="Box-header">
@@ -136,11 +140,14 @@
                 <li class="Box-row text-center" id="twoX">
                 </li>
             </ul>
-                <div class="Box-footer f6 text-center" id="footerData">
-                  </div>
         </div>
+        <p id="showAverageDuration" class="f3-light text-center pt-4"></p>
 
-       
+
+
+
+
+
 
     </div>
 

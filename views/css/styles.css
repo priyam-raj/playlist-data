@@ -23,11 +23,22 @@
 
 
 #showThumbnail{
-  max-width:480px;
+  max-width:240px;
   border-radius: 5px;
 }
 
 
 .image {
   margin: auto;
+}
+
+
+.playlist-meta {
+  display: flex;
+    align-items: center;
+}
+
+
+#footerData {
+  padding-left: 75px
 }
