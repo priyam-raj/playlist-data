@@ -161,7 +161,7 @@ function finalFetch(playlistEntered) {
           "Fetching successful!";
         document.getElementById("showThumbnail").src = thumbnailURL;
         document.getElementById("showDuration").innerHTML =
-          "The length of this playlist is<br>" +
+          "The total duration of this playlist is<br>" +
           fetchedData.oneX.hours +
           " hours " +
           fetchedData.oneX.minutes +
