@@ -151,7 +151,7 @@ function finalFetch(playlistEntered) {
         averageSeconds.seconds +
         " seconds";
 
-        $("#footerData").text(numberOfVideos + " videos");
+        $("#footerData span").text(numberOfVideos + " videos");
         $("#myText").removeAttr("disabled");
         $("#submit").removeAttr("disabled");
 
