@@ -47,9 +47,7 @@
   position: relative;
 }
 
-
-
-
 #footerData {
-  padding-left: 75px;
+    width: 100%;
+    text-align: center;
 }
