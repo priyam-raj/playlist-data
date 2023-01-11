@@ -1,29 +1,32 @@
 {
   "name": "playlist-data-scratch",
   "version": "1.0.0",
-  "description": "",
+  "description": "Ever wondered how long it would exactly take to complete the longest playlist on YouTube? We have got just the right thing for you! Up until now, there was no way (officially) to check the Duration or Length of any playlist.",
   "main": "app.js",
-
   "engines": {
     "node": "16.15.0"
   },
-
   "scripts": {
     "start": "node app.js",
     "build": "npm i",
     "test": "react-scripts test --env=jsdom"
   },
-
   "author": "Priyam Raj",
   "license": "ISC",
-
- 
-
   "dependencies": {
     "axios": "^0.27.2",
     "dotenv": "^16.0.1",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
     "serve": "^13.0.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/priyam-raj/playlist-data.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/priyam-raj/playlist-data/issues"
+  },
+  "homepage": "https://github.com/priyam-raj/playlist-data#readme"
 }
