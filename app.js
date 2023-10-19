@@ -1,7 +1,6 @@
 const express = require('express')
 const axios = require('axios')
 const app = express()
-const API_KEY = process.env.YOUTUBE_API_KEY
 const videoDetailsURL = `https://yt.lemnoslife.com/noKey/videos?part=contentDetails&fields=items/contentDetails/duration`
 const playlistItemsURL = `https://yt.lemnoslife.com/noKey/playlistItems?part=contentDetails&maxResults=50&fields=items/contentDetails/videoId,nextPageToken`
 
@@ -10,12 +9,13 @@ app.use(express.static('views'))
 
 //Generates URL for required videos.
 function generateVideosURL (id) {
-  return `${videoDetailsURL}&id=${id}&key=${API_KEY}`
+  return `${videoDetailsURL}&id=${id}`
 }
 
 // Requests for videoIDS and nextPageToken(s)
 async function getVideoIdsForPageToken (url) {
   try {
+    console.log(url)
     const { data } = await axios.get(url)
     const nextPageToken = data.nextPageToken
     const videoIds = data.items.map(video => {
@@ -72,14 +72,13 @@ function returnedToSeconds (input) {
   }
 }
 
-async function fetchFirstThumbnail () {}
 
 async function getPlaylistTotalDuration (extractedPlaylistIDId, newPageToken) {
   try {
     // Step 1: Create the required query URL based on the newPageToken parameter
     let url = newPageToken
-      ? `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}&pageToken=${newPageToken}&key=${API_KEY}`
-      : `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}&key=${API_KEY}`
+      ? `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}&pageToken=${newPageToken}`
+      : `${playlistItemsURL}&playlistId=${extractedPlaylistIDId}`
 
     // Step 2: Start a local duration counter
     let totalDuration = 0
@@ -113,11 +112,10 @@ async function getPlaylistTotalDuration (extractedPlaylistIDId, newPageToken) {
       numberOfVideos += returnedNoOfVideos
       firstVideoIds = videoIds[0]
     }
-    // Step 6: Return the final value, which will propogate back in a recursive function
     return { totalDuration, numberOfVideos, firstVideoIds }
   } catch (e) {
     console.log('Error while navigating between video pages.')
-    throw new Error(e.message)
+    throw new Error(e)
   }
 }
 
@@ -126,7 +124,7 @@ app.post('/search', async (req, res) => {
     let checkRes
     await axios
       .get(
-        `https://yt.lemnoslife.com/noKey/playlistItems?part=status&maxResults=1&playlistId=${playlistID}&key=${API_KEY}`
+        `https://yt.lemnoslife.com/noKey/playlistItems?part=status&maxResults=1&playlistId=${playlistID}`
       )
       .then(res => {
         checkRes = true
